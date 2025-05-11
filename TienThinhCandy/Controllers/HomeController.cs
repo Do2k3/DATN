@@ -10,7 +10,7 @@ using TienThinhCandy.Models.DB;
 
 namespace TienThinhCandy.Controllers
 {
-   
+   //HomeController
     public class HomeController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
