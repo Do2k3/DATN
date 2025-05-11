@@ -1,0 +1,92 @@
+﻿@model PagedList.PagedList<TienThinhCandy.Models.DB.WishList>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Sản phẩm yêu thích";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+<style>
+    .new_section_container {
+        margin-top: 180px;
+    }
+
+    .row item-new {
+        margin-bottom: 20px;
+    }
+
+    .title-new {
+        font-size: 24px;
+        border-bottom: 1px solid;
+        padding: 15px 0;
+        margin-bottom: 25px;
+    }
+
+    .img-box {
+        max-height: 100px;
+        max-width: 100px;
+    }
+</style>
+<div class="container new_section_container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="title-new">Sản phẩm yêu thích</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Ảnh</th>
+                        <th>Tên</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+
+                            <tr id="tr_@item.ProductId">
+                                <td><img width="100" height="100" src="@item.Product.Image" alt="@item.Product.Title" /></td>
+                                <td><a href="/chi-tiet/@item.Product.Alias-p@(item.ProductId)" title="@item.Product.Title">@item.Product.Title</a></td>
+                                <td><a href="#" data-id="@item.ProductId" class="btn btn-danger btnDelete">Xoá</a></td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6"></div>
+        <div class="col-6" style="text-align:right">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data('id');
+                var conf = confirm('Bạn có muốn xoá hay không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '/wishlist/delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                $('#tr_' + id).remove();
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+}
+

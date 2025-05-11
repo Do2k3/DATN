@@ -1,0 +1,174 @@
+﻿@model PagedList.PagedList<TienThinhCandy.Models.DB.Order>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    @using (Html.BeginForm("Index", "Order", FormMethod.Get, new { }))
+    {
+        <div class="input-group">
+            @Html.TextBox("SearchText", null, new { @class = "form-control bg-light border-0 small", @placeholder = "Tìm kiếm" })
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    }
+</nav>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h3>Quản lý đơn hàng</h3>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/home/index">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Danh sách đơn hàng</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Danh sách đơn hàng</h4>
+        </div>
+        <div class="card-body">
+            <table class=" table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Tên khách hàng</th>
+                        <th>Số điện thoại</th>
+                        <th>Tiền</th>
+                        <th>Trạng thái vận chuyển</th>
+                        <th>Phương thức thanh toán</th>
+                        <th>Ngày tạo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1; ;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.Code</td>
+                                <td>@item.CustomerName</td>
+                                <td>@item.Phone</td>
+                                <td>@TienThinhCandy.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
+                                <td>
+                                    @if (item.Status == 3)
+                                    {
+                                        <p>Đã hoàn thành </p>
+                                    }
+                                    else if (item.Status == 2)
+                                    {
+                                        <p>Đã vận chuyển</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Chờ vận chuyển</p>
+                                    }
+                                </td>
+                                <td>
+                                    @(item.TypePayment == 1?"COD": "Chuyển khoản")
+                                </td>
+                                <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
+                                    <a href="#" class="btn btn-sm btn-danger btnUpdate" data-id="@item.Id">Cập nhật</a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6" style="text-align:right">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+            Footer
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cập nhật trạng thái</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="txtOrderId" value="0" />
+                <div class="form-group">
+                    <label>Trạng thái vận chuyển</label>
+                    <select class="form-control" id="ddTrangThai">
+                        <option value="1">Chờ vận chuyển</option>
+                        <option value="2">Đã vận chuyển</option>
+                        <option value="3">Đã hoàn thành</option>
+                    </select>
+                </div>
+             
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary " id="btnLuu">Lưu</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("body").on("click", ".btnUpdate", function () {
+                var id = $(this).data("id");
+                $("#txtOrderId").val(id);
+                $("#modal-default").modal("show");
+            });
+
+            $("body").on("click", "#btnLuu", function () {
+                var id = $("#txtOrderId").val();
+                var tt = $("#ddTrangThai").val();
+               
+                $.ajax({
+                    url: '/admin/order/UpdateTT',
+                    type: 'POST',
+                    data: { id: id, tt: tt},
+                    success: function (rs) {
+                        if (rs.Success) {
+                            location.reload();
+                        }
+                    }
+                })
+            })
+        });
+    </script>
+} 

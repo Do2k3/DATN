@@ -1,0 +1,113 @@
+﻿@model IEnumerable<TienThinhCandy.Models.DB.Category>
+@{
+    ViewBag.Title = "Danh Mục";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    @using (Html.BeginForm("Index", "Category", FormMethod.Get, new { }))
+    {
+        <div class="input-group">
+            @Html.TextBox("SearchText", null, new { @class = "form-control bg-light border-0 small", @placeholder = "Tìm kiếm" })
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    }
+</nav>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-sm-6">
+                <h3>Quản lý danh mục</h3>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/home/index">Trang chủ</a></li>
+                    <li class="breadcrumb-item active"><a href="/admin/category">Danh mục</a></li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Danh sách danh mục</h4>
+            <div class="card-tools">
+                <a href="/admin/category/add" class="btn btn-primary">Thêm mới</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                       <th>STT</th>
+                       <th>Tên danh mục</th>
+                       <th>Thứ tự</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = 1;
+                        foreach (var item in Model)
+                        {
+                            <tr id="trow_@item.Id">
+                                <td>@i</td>
+                                <td>@item.Title</td>
+                                <td>@item.Position</td>
+                                <td>
+                                    <a href="/admin/category/edit/@item.Id" class="btn btn-primary">Sửa</a>
+                                    <a href="#" data-id="@item.Id" class="btn btn-danger btnDelete">Xoá</a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4"> Không có bản ghi nào</td>
+                        </tr>
+                    }
+                </tbody>
+                </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data('id');
+                var conf = confirm('Bạn có muốn xoá hay không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '/admin/category/delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                $('#trow_' + id).remove();
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+    }

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<TienThinhCandy.Models.DB.Category>
+
+@if (Model != null && Model.Any())
+{
+    <ul class="menu_top_nav">
+        @foreach (var item in Model)
+        {
+            if (item.Alias.Equals("trang-chu"))
+            {
+                item.Alias = "";
+            }
+            <li class="menu_item"><a href="/@item.Alias">@item.Title</a></li>
+        }
+    </ul>
+}
+
+@*<ul class="menu_top_nav">
+    <li class="menu_item"><a href="#">home</a></li>
+    <li class="menu_item"><a href="#">shop</a></li>
+    <li class="menu_item"><a href="#">promotion</a></li>
+    <li class="menu_item"><a href="#">pages</a></li>
+    <li class="menu_item"><a href="#">blog</a></li>
+    <li class="menu_item"><a href="#">contact</a></li>
+</ul>*@

@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Tiến Thịnh - Một thoáng kinh kỳ</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/bootstrap4/bootstrap.min.css">
+    <link href="~/Content/assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    @*<link href="~/Content/assets/styles/main_styles.css" rel="stylesheet" />*@
+
+
+
+    @*@RenderSection("css", required: false)*@
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/responsive.css">
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Content/assets/js/jquery-3.2.1.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+</head>
+<body>
+    <div class="super_container">
+
+        <!-- Header -->
+
+        <header class="header trans_300">
+
+            <!-- Top Navigation -->
+
+            <div class="top_nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            @*<div class="top_nav_left">free shipping on all u.s orders over $50</div>*@
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <div class="top_nav_right">
+                                <ul class="top_nav_menu">
+                                    <li class="language">
+                                        <a href="#">
+                                            Tiếng Việt
+                                            <i class="fa fa-angle-down"></i>
+                                        </a>
+                                    </li>
+                                    <li class="account" style="width:150px">
+
+                                        @if (!Request.IsAuthenticated)
+                                        {
+                                            <a href="#">
+                                                Tài khoản
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="account_selection">
+                                                <li><a href="/account/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng nhập</a></li>
+                                                <li><a href="/account/register"><i class="fa fa-user-plus" aria-hidden="true"></i>Đăng ký</a></li>
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            <a href="#">
+                                                @User.Identity.Name
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="account_selection">
+                                                <li><a href="/account/profile"><i class="fa fa-user-plus" aria-hidden="true"></i>Thông tin</a></li>
+                                                <li><a href="/wishlist/index"><i class="fa fa-user-plus" aria-hidden="true"></i>Sản phẩm yêu thích</a></li>
+                                                <li><a href="javascript:document.getElementById('logOffForm').submit()"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng xuất</a></li>
+                                            </ul>
+                                        }
+
+                                    </li>
+                                </ul>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <div style="display:none">
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @id = "logOffForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Navigation -->
+
+            <div class="main_nav_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <div class="logo_container">
+                                <img style="width: 100px; height:100px" src="~/Content/Client/img/Tienthinh.jpg" />
+                            </div>
+                            <nav class="navbar">
+                                @Html.Action("MenuTop", "Menu")
+                                <ul class="navbar_user">
+
+                                    <li><a href="/don-hang"><i class="fa fa-bars" aria-hidden="true"></i></a></li>
+                                    <li class="checkout">
+                                        <a href="/gio-hang">
+                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                            <span id="checkout_items" class="checkout_items">0</span>
+                                        </a>
+                                    </li>
+                                    <li> <div class="hamburger_container"><i id="btnmenuright" class="fa fa-bars" aria-hidden="true"></i></div></li>
+                                </ul>
+
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        @*</div><div class="fs_menu_overlay" style="pointer-events: auto; "></div>
+            <div class="hamburger_menu active" id="menuright" style="display: none">
+                <div class="hamburger_close"><i id="close" class="fa fa-times" aria-hidden="true"></i></div>
+                <div class="hamburger_menu_content text-right">
+                    @Html.Action("MenuRight", "Menu")
+                </div>*@
+        @RenderBody()
+
+        <!-- Newsletter -->
+        <div class="row">
+            <div class="col-12">
+                @Html.Action("Partial_Subscribe", "Home")
+            </div>
+        </div>
+        @*<div class="row">
+                <div class="col-12">
+                    @Html.Action("Index", "ChatbotAI")
+                </div>
+            </div>*@
+        <!-- Footer -->
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="footer_nav_container d-flex flex-sm-row flex-column align-items-center justify-content-lg-start justify-content-center text-center">
+                            <ul class="footer_nav">
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">FAQs</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        @Html.Action("MenuContact", "Menu")
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
+    </div>
+
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+
+    <script src="~/Content/assets/styles/bootstrap4/popper.js"></script>
+    <script src="~/Content/assets/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="~/Content/assets/plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/Content/assets/plugins/easing/easing.js"></script>
+    <script src="~/Content/assets/js/custom.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    <script src="~/Scripts/jsShopping.js"></script>
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $("#close").click(function () {
+                $("#menuright").hide();
+            });
+
+            $("#btnmenuright").click(function () {
+                $("#menuright").show();
+            });
+
+        });
+
+
+    </script>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger intent="WELCOME"
+                  chat-title="ChatbotAi"
+                  agent-id="7853b91d-07c8-46b2-b135-23201e10326e"
+                  language-code="vi">
+    </df-messenger>
+</body>
+</html>

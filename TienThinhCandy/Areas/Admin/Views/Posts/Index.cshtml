@@ -1,0 +1,203 @@
+﻿@model PagedList.PagedList<TienThinhCandy.Models.DB.Posts>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Danh sách tin tức ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    @using (Html.BeginForm("Index", "Posts", FormMethod.Get, new { }))
+    {
+        <div class="input-group">
+            @Html.TextBox("SearchText", null, new { @class = "form-control bg-light border-0 small", @placeholder = "Tìm kiếm" })
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    }
+</nav>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h3>Quản lý tin tức</h3>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/home/index">Trang chủ</a></li>
+                    <li class="breadcrumb-item active"><a href="/admin/posts">@ViewBag.Title</a></li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">@ViewBag.Title</h4>
+
+            <div class="card-tools">
+                <a href="/admin/posts/add" class="btn btn-primary">Thêm mới</a>
+                <a href="#" class="btn btn-danger" id="btnDeleteAll">Xoá</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="SelectAll" /></th>
+                        <th>STT</th>
+                        <th>Hình ảnh </th>
+                        <th>Tiêu đề tin</th>
+                        <th>Ngày tạo</th>
+                        <th>Hiển thị</th>
+                        <th>Thứ tự</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+
+                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                        foreach (var item in Model)
+                        {
+                            var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            <tr id="trow_@item.Id">
+                                <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
+                                <td>@i</td>
+                                <td><img src="@item.Image" width="50" /></td>
+                                <td>@item.Title</td>
+                                <td>@item.CreatedDate.ToString("dd/MM/yy")</td>
+                                <td class="text-center">
+                                    <a href='#' data-id="@item.Id" class="btnActive"> @Html.Raw(strCheck)</a>
+                                </td>
+                                <td>
+                                    <a href="/admin/posts/edit/@item.Id" class="btn btn-primary">Sửa</a>
+                                    <a href="#" data-id="@item.Id" class="btn btn-danger btnDelete">Xoá</a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4"> Không có bản ghi nào</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6" style="text-align:right">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data('id');
+                var conf = confirm('Bạn có muốn xoá hay không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '/admin/posts/delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                $('#trow_' + id).remove();
+                            }
+                        }
+                    });
+                }
+            });
+            $('body').on('click', '.btnActive', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = btn.data("id");
+                $.ajax({
+                    url: '/admin/news/IsActive',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            if (rs.isActive) {
+                                btn.html("<i class='fa fa-check text-success'></i>");
+                            } else {
+                                btn.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        }
+                    }
+                });
+            });
+
+            $('body').on('change', '#SelectAll', function () {
+                var checkStatus = this.checked;
+                var checkbox = $(this).parents('.card-body').find('tr td input:checkbox');
+                checkbox.each(function () {
+                    this.checked = checkStatus;
+                    if (this.checked) {
+                        checkbox.attr('selected', 'checked');
+                    } else {
+                        checkbox.attr('selected', '');
+                    }
+                });
+            });
+
+            $('body').on('click', '#btnDeleteAll', function (e) {
+                e.preventDefault();
+                var str = "";
+                var checkbox = $(this).parents('.card').find('tr td input:checkbox');
+                var i = 0
+                checkbox.each(function () {
+                    if (this.checked) {
+                        checkbox.attr('selected', 'checked');
+                        var _id = $(this).val();
+                        if (i === 0) {
+                            str += _id;
+                        } else {
+                            str += "," + _id;
+                        }
+                        i++;
+                    } else {
+                        checkbox.attr('selected', '');
+
+                    }
+                });
+                if (str.length > 0) {
+                    var conf = confirm("Bạn có muốn xoá các bản ghi hay không");
+                    if (conf === true) {
+                        $.ajax({
+                            url: '/admin/news/deleteAll',
+                            type: 'POST',
+                            data: { ids: str },
+                            success: function (rs) {
+                                if (rs.success) {
+                                    location.reload();
+                                }
+                            }
+                        })
+                    }
+                }
+            });
+        });
+    </script>
+}

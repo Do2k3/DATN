@@ -1,0 +1,15 @@
+﻿@model IEnumerable<TienThinhCandy.Models.DB.Contact>
+<div class="footer_social d-flex flex-row align-items-center justify-content-lg-end justify-content-center">
+
+    @if (Model != null && Model.Any())
+    {
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li><a href="@item.Link">@item.Name</a></li>
+            }
+
+        </ul>
+    }
+
+</div>

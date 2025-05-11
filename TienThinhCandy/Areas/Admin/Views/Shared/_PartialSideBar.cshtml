@@ -1,0 +1,136 @@
+﻿<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3"> Quản lý cửa hàng</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="/admin/home">
+            <i class="fas fa-home"></i>
+            <span>Trang chủ</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading fs-2">
+        Quản lý
+    </div>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/Category">
+            <i class="fas fa-list"></i>
+            <span>Danh mục</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/Account">
+            <i class="fas fa-user"></i>
+            <span>Tài khoản </span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/Role">
+            <i class="fas fa-user-tag"></i>
+            <span>Phân quyền</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/Posts">
+            <i class="far fa-newspaper"></i>
+            <span>Bài viết</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/Order">
+            <i class="fas fa-box"></i>
+            <span>Đơn hàng</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/statistical">
+            <i class="fas fa-chart-line"></i>
+            <span>Thống kê</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/contact">
+            <i class="fas fa-phone"></i>
+            <span>Liên hệ</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-candy-cane"></i>
+            <span>Quản lý sản phẩm</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/admin/productcategory">Danh mục sản phẩm</a>
+                <a class="collapse-item" href="/admin/product">Sản phẩm</a>
+            </div>
+        </div>
+    </li>
+
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading fs-3">
+        Cài đặt
+    </div>
+
+    <li class="nav-item">
+        <a href="javascript:document.getElementById('logOffForm').submit()" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Đăng xuất</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/admin/settingsystem">
+            <i class="fas fa-wrench"></i>
+            <span>Cấu hình hệ thống</span>
+        </a>
+    </li>
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block" />
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+    <!-- Sidebar Message -->
+
+
+</ul>
+@if (Request.IsAuthenticated)
+{
+    <div style="display:none">
+        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @id = "logOffForm" }))
+        {
+            @Html.AntiForgeryToken()
+        }
+    </div>
+
+}

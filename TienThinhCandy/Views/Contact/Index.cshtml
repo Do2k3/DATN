@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<TienThinhCandy.Models.DB.Contact>
+<link href="~/Content/assets/styles/contact_styles.css" rel="stylesheet" />
+<link href="~/Content/assets/styles/contact_responsive.css" rel="stylesheet" />
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Contact</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Map Container -->
+
+    <div class="row">
+        <div class="col">
+            <div id="google_map">
+                <div class="map_container">
+                    <div id="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.874060326249!2d105.8467824964672!3d21.03772458482336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abbf2aa3eb0f%3A0x244b46365a04109f!2zQ-G7rWEgSMOgbmcgQsOhbmggVGnhur9uIFRo4buLbmg!5e0!3m2!1svi!2s!4v1746272330203!5m2!1svi!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Us -->
+
+    <div class="row">
+
+        <div class="col-lg-6 contact_col">
+            <div class="contact_contents">
+                <h1>Contact Us</h1>
+                <p>There are many ways to contact us. You may drop us a line, give us a call or send an email, choose what suits you the most.</p>
+                <div>
+                    <p>(800) 686-6688</p>
+                    <p>info.deercreative@gmail.com</p>
+                </div>
+                <div>
+                    <p>mm</p>
+                </div>
+                <div>
+                    <p>Open hours: 8.00-18.00 Mon-Fri</p>
+                    <p>Sunday: Closed</p>
+                </div>
+            </div>
+
+            <!-- Follow Us -->
+
+            <div class="follow_us_contents">
+                <h1>Follow Us</h1>
+                <ul class="social d-flex flex-row">
+                    <li><a href="#" style="background-color: #3a61c9"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                    <li><a href="#" style="background-color: #fb4343"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                    <li><a href="#" style="background-color: #8f6247"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLtHJKVHHAf8aiXiY386F0GwUUUYgQROU&callback=initMap" async defer></script>
+@*<script src="~/Content/assets/js/contact_custom.js"></script>*@
+@*<script>
+    function initMap() {
+        var location = { lat: 21.0285, lng: 105.8542 }; // Tọa độ Hà Nội
+        var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 12,
+            center: location
+        });
+
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+    }
+</script>*@

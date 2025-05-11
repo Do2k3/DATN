@@ -1,0 +1,61 @@
+﻿@model TienThinhCandy.Models.DB.Posts
+@{
+    ViewBag.Title = "Chi tiết tin tức";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+
+<style>
+    .new_section_container {
+        margin-top: 180px;
+    }
+
+    .row item-new {
+        margin-bottom: 20px;
+    }
+
+    .title-new {
+        font-size: 24px;
+        border-bottom: 1px solid;
+        padding: 15px 0;
+        margin-bottom: 25px;
+    }
+
+    /*    .img-box {
+        max-height: 200px;
+        max-width: 200px;
+    }
+    .img-box img{
+        align-items:center;
+    }*/
+</style>
+<div class="container new_section_container">
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="title-new">@Model.Title</h1>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                
+            </div>
+            <div class="col-md-6">
+                <img style="height:100%; width:100%" src="@Model.Image" />
+            </div>
+            <div class="col-md-3">
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Model.Description
+            </div>
+            <div class="col-md-12 mt-5">
+                @Html.Raw(Model.Detail)
+            </div>
+        </div>
+    }
+</div>

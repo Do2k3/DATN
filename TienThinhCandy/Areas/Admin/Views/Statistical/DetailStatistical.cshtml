@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "DetailStaistical";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@*<link href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.dataTables.css" rel="stylesheet">*@
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thống kê</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/home/index">Trang chủ</a></li>
+                    <li class="breadcrumb-item ">Thống kê</li>
+                    <li class="breadcrumb-item active">Chi tiết thống kê</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Chi tiết thống kê </h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <table id="table_statis" class="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Ngày</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng bán </th>
+                                <th>Tiền vốn</th>
+                                <th>Doanh thu</th>
+                                <th>Lợi nhuận</th>
+                            </tr>
+                        </thead>
+                        <tbody id="load_data2">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Content/assets/plugins/moment/moment.min.js"></script>
+@*<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js"></script>*@
+@section scripts{
+    <script>
+        $(function () {
+            /* ChartJS
+             * -------
+             * Here we will create a few charts using ChartJS
+             */
+            
+            $.ajax({
+                url: '/Statistical/DetailStatistical',
+                type: 'GET',
+                data: {},
+                success: function (rs) {
+                    load_data2(rs.Data)
+                }
+            })
+
+            // Get context with jQuery - using jQuery's .get() method.
+            //var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
+
+
+        })
+        function load_data2(data) {
+           
+            var strHtml = "";
+            $.each(data, function (i, item) {
+                var strDate = moment(item.Date).format('DD/MM/yyyy');
+                strHtml += "<tr>";
+                strHtml += "< td > " + (i + 1) + "</td > "
+                strHtml += "< td > " + strDate + "</td > "
+                strHtml += "< td > " + item.ProductTitle + "</td > "
+                strHtml += "< td > " + item.SoLuongBan + "</td > "
+                strHtml += "< td > " + item.TienVon + "</td > "
+                strHtml += "< td > " + item.DoanhThu + "</td > "
+                strHtml += "< td > " + item.LoiNhuan + "</td > "
+                strHtml += "</tr > ";
+            });
+            $('#load_data2').html(strHtml);
+        }
+
+        new DataTable('#table_statis', {
+            layout: {
+                topStart: {
+                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+                }
+            }
+        });
+    </script>
+}

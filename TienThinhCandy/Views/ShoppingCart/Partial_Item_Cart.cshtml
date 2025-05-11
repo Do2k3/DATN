@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TienThinhCandy.Models.ShoppingCartItem>
+@using TienThinhCandy.Common
+
+<table class="table">
+    <tr class="text-center">
+        <th>STT</th>
+        <th>Ảnh sản phẩm</th>
+        <th>Tên sản phẩm</th>
+        <th>Danh mục</th>
+        <th>Giá</th>
+        <th style="width:50px">Số lượng</th>
+        <th>Thành tiền</th>
+        <th style="width:200px">
+            Thao tác
+        </th>
+    </tr>
+    @if (Model != null && Model.Any())
+    {
+        var i = 0;
+        var tongtien = decimal.Zero;
+        foreach (var item in Model)
+        {
+            tongtien += item.TotalPrice;
+            <tr class="text-center" id="trow_@item.ProductId">
+                <td>@(i+1)</td>
+                <td><img src="@item.ProductImage" width="60" /></td>
+                <td><a href="/chi-tiet/@item.Alias-p(@item.ProductId)">@item.ProductName</a></td>
+                <td>@item.CategoryName</td>
+                <td>@Common.FormatNumber(item.Price, 0)</td>
+                <td><input type="number" class="form-control-sm" id="Quantity_@item.ProductId" value="@item.Quantity" /></td>
+                <th>@Common.FormatNumber(@item.TotalPrice, 2)</th>
+                <td>
+                    <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDelete">Xoá</a>
+                    <a href="#" data-id="@item.ProductId" style="" class="btn btn-sm btn-success btnUpdate">Cập nhật</a>
+                </td>
+            </tr>
+            i++;
+        }
+        <tr class="text-center">
+            <th colspan="6" class="text-right">Tổng</th>
+            <th>@Common.FormatNumber(tongtien, 0)</th>
+        </tr>
+       
+    }
+    else
+    {
+        <tr>
+            <td colspan="7" class="text-center">
+                Không có sản phẩm nào trong giỏ hàng
+            </td>
+        </tr>
+    }
+</table>

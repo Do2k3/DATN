@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model PagedList.PagedList<TienThinhCandy.Models.DB.Order>
+@using PagedList.Mvc
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+<link rel="stylesheet" href="~/Content/assets/plugins/themify-icons/themify-icons.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_responsive.css">
+<style>
+        .tabs_section_container {
+            margin-top: 180px;
+        }
+
+        .row item-new {
+            margin-bottom: 20px;
+        }
+
+        .title-new {
+            font-size: 24px;
+            border-bottom: 1px solid;
+            padding: 15px 0;
+            margin-bottom: 25px;
+        }
+
+        .img-box {
+            max-height: 100px;
+            max-width: 100px;
+        }
+    </style>
+<div class="tabs_section_container"> 
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="tabs_container">
+                    <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
+                        <li class="tab active" data-active-tab="tab_1"><span>Tất cả</span></li>
+                        <li class="tab" data-active-tab="tab_2"><span>Chờ vận chuyển</span></li>
+                        <li class="tab" data-active-tab="tab_3"><span>Đã vận chuyển </span></li>
+                        <li class="tab" data-active-tab="tab_4"><span>Hoàn thành</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <!-- Tab Description -->
+
+                <div id="tab_1" class="tab_container active">
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Trạng thái</th>
+                                    <th>Số tiền</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+
+                                        <tr id="tr_@item.Id">
+                                            <td>@item.Code</td>
+                                            <td>@item.Address</td>
+                                            <td>
+                                                @if (item.Status == 1)
+                                                {
+                                                    <p> Chờ vận chuyển </p>
+                                                }
+                                                else if (item.Status == 2)
+                                                {
+                                                    <p> Đã vận chuyển </p>
+                                                }
+                                                else
+                                                {
+                                                    <p>Đã hoàn thành </p>
+                                                }
+                                            </td>
+                                            <td>@TienThinhCandy.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
+                                            <td><a href="/chi-tiet/o@(item.Id)">Chi tiết</a></td>
+                                            <td>
+                                                @if (item.Status == 1)
+                                                {
+                                                    <a href="#" data-id="@item.Id" class="btn btn-danger btnHuy">Huỷ</a>
+                                                }
+                                            </td>
+                                        </tr>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <th>Không có đơn hàng</th>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab_2" class="tab_container">
+                    <div class="row">
+                        @Html.Action("WaitShipping", "Orders")
+                    </div>
+                </div>
+
+                <div id="tab_3" class="tab_container">
+                    <div class="row">
+                        @Html.Action("Shipped", "Orders")
+                    </div>
+                </div>
+                <div id="tab_4" class="tab_container">
+                    <div class="row">
+                        @Html.Action("Compelete", "Orders")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/Content/assets/js/single_custom.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnHuy', function () {
+                var id = $(this).data('id');
+                var conf = confirm('Bạn có muốn xoá hay không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '/orders/delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                $('#tr_' + id).remove();
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+}
+
+

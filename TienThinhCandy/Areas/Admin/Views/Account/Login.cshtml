@@ -1,0 +1,59 @@
+﻿@model TienThinhCandy.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="row pt-lg-5">
+    <div class="col-lg-6 d-none d-lg-block bg-login-image centered">
+        <img src="~/Content/Client/img/Tienthinh.jpg" alt="Ô mai Tiến Thịnh"/>
+    </div>
+    <div class="col-lg-6">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 style="color: black"  class="h4 mb-4">Hệ thống quản lý</h1>
+            </div>
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+                @Html.AntiForgeryToken()
+                <div class="input-group mb-3">
+                    @Html.TextBoxFor(x => x.UserName, new { @class = "form-control form-control-user", @placeholder = "Tài khoản" })
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    @Html.TextBoxFor(x => x.Password, new { @class = "form-control form-control-user", @placeholder = "Mật khẩu" })
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            @Html.CheckBoxFor(x => x.RememberMe)
+                            <label style="color: black" for="remember">
+                                Nhớ mật khẩu
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-6 align-content-center">
+                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            }
+            <hr>
+            <div class="text-center">
+                <a class="small" style="font-size:20px" href="forgot-password.html">Quên mật khẩu?</a>
+            </div>
+            
+        </div>
+    </div>
+</div>
