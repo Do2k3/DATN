@@ -196,17 +196,77 @@ namespace TienThinhCandy.Areas.Admin.Controllers
             base.Dispose(disposing);
         }
 
+       
+
         [HttpPost]
-        public ActionResult Delete(int id)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(EditAccountViewModel model)
         {
-            var item = db.Users.Find(id);
+            if (ModelState.IsValid)
+            {
+                var user = UserManager.FindByName(model.UserName);
+                user.FullName = model.FullName;
+                user.Phone = model.Phone;
+                user.Email = model.Email;
+                var result = await UserManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    var rolesForUser = UserManager.GetRoles(user.Id);
+                    if (model.Roles != null)
+                    {
+
+                        foreach (var r in model.Roles)
+                        {
+                            var checkRole = rolesForUser.FirstOrDefault(x => x.Equals(r));
+                            if (checkRole == null)
+                            {
+                                UserManager.AddToRole(user.Id, r);
+                            }
+
+                        }
+                    }
+
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Account");
+                }
+                AddErrors(result);
+            }
+            ViewBag.Role = new SelectList(db.Roles.ToList(), "Name", "Name");
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteAccount(string user, string id)
+        {
+            var code = new { Success = false };//mặc định không xóa thành công.
+            var item = UserManager.FindByName(user);
             if (item != null)
             {
-                db.Users.Remove(item);
-                db.SaveChanges();
-                return Json(new { success = true });
+                var rolesForUser = UserManager.GetRoles(id);
+                if (rolesForUser != null)
+                {
+                    foreach (var role in rolesForUser)
+                    {
+                        //roles.Add(role);
+                        await UserManager.RemoveFromRoleAsync(id, role);
+                    }
+
+                }
+
+                var res = await UserManager.DeleteAsync(item);
+                code = new { Success = res.Succeeded };
             }
-            return Json(new { success = false });
+            return Json(code);
         }
     }
 }

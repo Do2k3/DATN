@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TienThinhCandy.Models;
+using System.Threading.Tasks;
 
 namespace TienThinhCandy.Areas.Admin.Controllers
 {
@@ -60,20 +61,18 @@ namespace TienThinhCandy.Areas.Admin.Controllers
 
 
 
-        //[HttpPost]
-
-        //public ActionResult Delete(int id)
-        //{
-        //    var item = IdentityRole
-        //    if (item != null)
-        //    {
-        //        var roleManager = db.Roles.ToList();
-        //        roleManager.Remove(item);
-        //        db.SaveChanges();
-        //        return Json(new { success = true });
-        //    }
-
-        //    return Json(new { success = false });
-        //}
+        [HttpPost]
+        public async Task<ActionResult> DeleteRole(string name)
+        {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+            var code = new { Success = false };//mặc định không xóa thành công.
+            var item = roleManager.FindByNameAsync(name);
+            if (item != null)
+            {
+                var res = await roleManager.DeleteAsync(await item);
+                code = new { Success = res.Succeeded };
+            }
+            return Json(code);
+        }
     }
 }

@@ -46,12 +46,12 @@
                         var i = 1;
                         foreach (var item in Model)
                         {
-                            <tr id="trow_@item.Id">
+                            <tr id="trow_@item.Name">
                                 <td>@i</td>
                                 <td>@item.Name</td>
                                 <td>
                                     <a href="/admin/role/edit/@item.Id" class="btn btn-primary">Sửa</a>
-                                    <a href="#" data-id="@item.Id" class="btn btn-danger btnDelete">Xoá</a>
+                                    <a href="#" data-name="@item.Name" class="btn btn-danger btnDelete">Xoá</a>
                                 </td>
                             </tr>
                             i++;
@@ -71,19 +71,18 @@
 </section>
 @section scripts{
     <script>
-       
             $(document).ready(function () {
                 $('body').on('click', '.btnDelete', function () {
-                    var id = $(this).data('id');
+                    var name = $(this).data('name');
                     var conf = confirm('Bạn có muốn xoá hay không?');
                     if (conf === true) {
                         $.ajax({
-                            url: '/admin/role/delete',
+                            url: '/admin/role/DeleteRole',
                             type: 'POST',
-                            data: { id: id },
-                            success: function (rs) {
-                                if (rs.success) {
-                                    $('#trow_' + id).remove();
+                            data: { name: name },
+                            success: function (res) {
+                                if (res.Success) {
+                                    $('#trow_' + name).remove();
                                 }
                             }
                         })
