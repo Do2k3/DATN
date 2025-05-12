@@ -62,17 +62,6 @@ namespace TienThinhCandy.Areas.Admin.Controllers
 
 
         [HttpPost]
-        //public async Task<ActionResult> DeleteRole(int Roleid)
-        //{
-        //    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
-        //    var role = await roleManager.FindByIdAsync(Roleid.ToString());
-        //    if (role != null)
-        //    {
-        //        await roleManager.DeleteAsync(role);
-        //        return RedirectToAction("Index");
-        //    }
-        //    return Json(new { success = true });          
-        //}
         public async Task<ActionResult> DeleteRole(string name)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
