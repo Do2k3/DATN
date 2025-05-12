@@ -93,6 +93,24 @@ namespace TienThinhCandy.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class EditAccountViewModel
+    {
+        [Required]
+        [Display(Name = "Tên tài khoản")]
+        public string UserName { get; set; }
+        [Required]
+        [Display(Name = "Họ tên")]
+        public string FullName { get; set; }
+
+        public string Phone { get; set; }
+        public List<string> Roles { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+    }
     public class RegisterViewModel
     {
         [Required]

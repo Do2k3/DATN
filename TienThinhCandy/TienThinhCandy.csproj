@@ -3552,6 +3552,7 @@
     <Content Include="Content\assets\bootstrap\js\bootstrap.min.js.map" />
     <Content Include="Content\assets\jquery\jquery.min.map" />
     <Content Include="Content\assets\jquery\jquery.slim.min.map" />
+    <Content Include="Areas\Admin\Views\Account\Edit.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
