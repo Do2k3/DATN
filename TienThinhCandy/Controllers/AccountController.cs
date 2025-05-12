@@ -142,6 +142,8 @@ namespace TienThinhCandy.Controllers
             return View();
         }
 
+       
+
         //
         // POST: /Account/Register
         [HttpPost]
