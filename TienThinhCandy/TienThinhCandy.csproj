@@ -254,6 +254,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductImageController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\SettingSystemController.cs" />
+    <Compile Include="Areas\Admin\Controllers\WareHousesController.cs" />
     <Compile Include="Common\SettingHeper.cs" />
     <Compile Include="Controllers\ChatbotAIController.cs" />
     <Compile Include="Migrations\202504200820516_update1.cs" />
@@ -291,6 +292,10 @@
     <Compile Include="Migrations\202505081338591_updateWare.cs" />
     <Compile Include="Migrations\202505081338591_updateWare.Designer.cs">
       <DependentUpon>202505081338591_updateWare.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505181105244_updateAll.cs" />
+    <Compile Include="Migrations\202505181105244_updateAll.Designer.cs">
+      <DependentUpon>202505181105244_updateAll.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Common\ThongKeTruyCap.cs" />
     <Compile Include="Models\DB\ChatbotData.cs" />
@@ -3553,6 +3558,8 @@
     <Content Include="Content\assets\jquery\jquery.min.map" />
     <Content Include="Content\assets\jquery\jquery.slim.min.map" />
     <Content Include="Areas\Admin\Views\Account\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\WareHouses\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Handle.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -3704,6 +3711,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505081338591_updateWare.resx">
       <DependentUpon>202505081338591_updateWare.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505181105244_updateAll.resx">
+      <DependentUpon>202505181105244_updateAll.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

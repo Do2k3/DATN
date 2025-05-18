@@ -1,0 +1,177 @@
+﻿
+@model PagedList.PagedList<TienThinhCandy.Models.DB.WareHouse>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.dataTables.css" rel="stylesheet">
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { }))
+    {
+        <div class="input-group">
+            @Html.TextBox("SearchText", null, new { @class = "form-control bg-light border-0 small", @placeholder = "Tìm kiếm" })
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+            </div>
+        </div>
+    }
+</nav>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Kho</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/home/index">Trang chủ</a></li>
+                    <li class="breadcrumb-item ">Kho</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+
+    <div class="card">
+        <div class="card-header">
+
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="table_statis" class="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Ảnh</th>
+                                <th>Số lượng</th>
+                                <th>Giá tiền</th>
+                                <th>Số lượng đã bán</th>
+                                <th>Số lượng còn</th>
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+
+                                var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                                foreach (var item in Model)
+                                {
+                                    <tr id="trow_@item.Id">
+                                        <td>@i</td>
+                                        <td>@item.Title</td>
+                                        <td><img style="height:100px; width:100px" src="@item.Image" alt="@item.Title" /></td>
+
+                                        <td>@item.Quantity</td>
+                                        <td>@item.Price</td>
+                                        <td>@item.PurchaseQuantity</td>
+                                        <td>@item.RemainingQuantity</td>
+                                        <td>
+                                            <a href="/admin/home/detail/@item.Id" class="btn btn-primary">Chi Tiết</a>
+
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4"> Không có bản ghi nào</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-6"></div>
+                        <div class="col-6" style="text-align:right">
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="~/Content/assets/plugins/moment/moment.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js"></script>
+@section scripts{
+
+    @*<script>
+            $(document).ready(function () {
+                fetchStatisticalData();
+            });
+
+            function fetchStatisticalData() {
+                $.ajax({
+                    url: '/Home/Index',
+                    type: 'GET',
+                    success: function (response) {
+                        if (response && response.Data) {
+                            load_data(response.Data);
+                            initializeDataTable();
+                            console.log(response.Data)
+                        } else {
+                            alert("Không có dữ liệu trả về.");
+                        }
+                    },
+                    error: function () {
+                        alert("Đã xảy ra lỗi khi tải dữ liệu.");
+                    }
+                });
+            }
+
+            //function load_data(data) {
+            //    var strHtml = "";
+            //    $.each(data, function (i, item) {
+            //        var formattedDate = moment(item.Date).format('DD/MM/yyyy');
+            //        strHtml += `
+            //                <tr>
+            //                    <td>${i + 1}</td>
+            //                    <td>${item.Id}</td>
+            //                    <td>${item.Title}</td>
+            //                    <td>${item.SoLuongDaBan}</td>
+            //                    <td>${item.SoLuongCon}</td>
+            //                    <td>${item.GiaNhap}</td>
+            //                    <td></td>
+            //                </tr>`;
+            //    });
+            //    $('#load_data').html(strHtml);
+            //}
+
+            function initializeDataTable() {
+                new DataTable('#table_statis', {
+                    layout: {
+                        topStart: {
+                            buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+                        }
+                    }
+                });
+            }
+        </script>*@
+}
+
+
+
+
+

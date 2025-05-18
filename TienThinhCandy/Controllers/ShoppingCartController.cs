@@ -99,6 +99,7 @@ namespace TienThinhCandy.Controllers
                         Quantity = x.Quantity,
                         Price = x.Price,
                     }));
+                    
                     order.TotalAmount = cart.items.Sum(x => (x.Price * x.Quantity));
                     order.Status = req.Status;
                     order.TypePayment = req.TypePayment;
@@ -112,6 +113,14 @@ namespace TienThinhCandy.Controllers
                     Random rd = new Random();
                     order.Code = "DH" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
                     db.Orders.Add(order);
+                    foreach (var item in cart.items)
+                    {
+                        var product = db.Products.FirstOrDefault(p => p.Id == item.ProductId);
+                        if (product != null)
+                        {
+                            product.Quantity = product.Quantity - item.Quantity; // Giả sử StockQuantity là cột theo dõi tồn kho
+                        }
+                    }
                     db.SaveChanges();
                     // gửi mail cho khách hàng:
                     var strSP = "";
