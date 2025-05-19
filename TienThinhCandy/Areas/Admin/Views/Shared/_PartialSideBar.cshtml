@@ -6,8 +6,14 @@
             <i class="fas fa-laugh-wink"></i>
         </div>
         <div class="sidebar-brand-text mx-3"> Quản lý cửa hàng</div>
-    </a>
 
+    </a>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-text mx-3">
+            Xin chào: @User.Identity.Name
+        </div>
+    </a>
+   
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
@@ -54,21 +60,32 @@
             <span>Bài viết</span>
         </a>
     </li>
-
     <li class="nav-item">
-        <a class="nav-link" href="/admin/Order">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+           aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-box"></i>
-            <span>Đơn hàng</span>
+            <span>Đơn hàng  <span class="badge bg-danger">@ViewBag.Count</span></span>
         </a>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/admin/Order/Handle">Đơn hàng cần xử lý  <span class="badge bg-danger">@ViewBag.Count</span></a>
+                <a class="collapse-item" href="/admin/Order/index">Đơn hàng</a>
+            </div>
+        </div>
     </li>
-
     <li class="nav-item">
-        <a class="nav-link" href="/admin/statistical">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-chart-line"></i>
             <span>Thống kê</span>
         </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/admin/statistical">Doanh thu</a>
+                <a class="collapse-item" href="/admin/">Mặt hàng bán chạy</a>
+            </div>
+        </div>
     </li>
-
     <li class="nav-item">
         <a class="nav-link" href="/admin/contact">
             <i class="fas fa-phone"></i>
@@ -78,12 +95,12 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
            aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-candy-cane"></i>
             <span>Quản lý sản phẩm</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="/admin/productcategory">Danh mục sản phẩm</a>
                 <a class="collapse-item" href="/admin/product">Sản phẩm</a>

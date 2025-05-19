@@ -60,6 +60,16 @@ namespace TienThinhCandy.Areas.Admin.Controllers
         }
 
         
-
+        public ActionResult StatisticalOrder()
+        {
+            var query = db.Orders
+            .GroupBy(o => o.Status)
+            .Select(g => new
+            {
+                Status = g.Key,
+                SoLuong = g.Count()
+            });
+            return Json(new { Data = query }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

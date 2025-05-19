@@ -1,4 +1,5 @@
-﻿@model PagedList.PagedList<TienThinhCandy.Models.DB.Order>
+﻿
+@model PagedList.PagedList<TienThinhCandy.Models.DB.Order>
 @using PagedList.Mvc
 @{
     ViewBag.Title = "Danh sách đơn hàng";
@@ -21,12 +22,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h3>Quản lý đơn hàng</h3>
+                <h3>Đơn hàng chờ vận chuyển</h3>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/home/index">Trang chủ</a></li>
-                    <li class="breadcrumb-item active">Danh sách đơn hàng</li>
+                    <li class="breadcrumb-item active">Danh sách </li>
                 </ol>
             </div>
         </div>
@@ -40,7 +41,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Danh sách đơn hàng</h4>
+            <h4 class="card-title">Danh sách </h4>
         </div>
         <div class="card-body">
             <table class=" table table-bordered">
@@ -63,25 +64,14 @@
                         var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1; ;
                         foreach (var item in Model)
                         {
-                            <tr>
+                            <tr id="trow_@item.Id">
                                 <td>@i</td>
                                 <td>@item.Code</td>
                                 <td>@item.CustomerName</td>
                                 <td>@item.Phone</td>
                                 <td>@TienThinhCandy.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
                                 <td>
-                                    @if (item.Status == 3)
-                                    {
-                                        <p>Đã hoàn thành </p>
-                                    }
-                                    else if (item.Status == 2)
-                                    {
-                                        <p>Đã vận chuyển</p>
-                                    }
-                                    else
-                                    {
                                         <p>Chờ vận chuyển</p>
-                                    }
                                 </td>
                                 <td>
                                     @(item.TypePayment == 1?"COD": "Chuyển khoản")
@@ -114,61 +104,26 @@
 
 </section>
 
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Cập nhật trạng thái</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="txtOrderId" value="0" />
-                <div class="form-group">
-                    <label>Trạng thái vận chuyển</label>
-                    <select class="form-control" id="ddTrangThai">
-                      
-                        <option value="2">Đã vận chuyển</option>
-                        <option value="3">Đã hoàn thành</option>
-                    </select>
-                </div>
-             
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary " id="btnLuu">Lưu</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
+
 
 @section scripts{
     <script>
         $(document).ready(function () {
             $("body").on("click", ".btnUpdate", function () {
                 var id = $(this).data("id");
-                $("#txtOrderId").val(id);
-                $("#modal-default").modal("show");
-            });
-
-            $("body").on("click", "#btnLuu", function () {
-                var id = $("#txtOrderId").val();
-                var tt = $("#ddTrangThai").val();
-               
                 $.ajax({
-                    url: '/admin/order/UpdateTT',
+                    url: '/admin/order/Update',
                     type: 'POST',
-                    data: { id: id, tt: tt},
+                    data: { id: id},
                     success: function (rs) {
-                        if (rs.Success) {
-                            location.reload();
+                        if (rs.Success) {                         
+                            location.reload();             
                         }
                     }
                 })
+                $('#trow_' + id).remove();
             })
         });
     </script>
-} 
+}
+

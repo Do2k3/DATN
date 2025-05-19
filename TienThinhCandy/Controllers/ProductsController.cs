@@ -72,7 +72,5 @@ namespace TienThinhCandy.Controllers
             var items = _dbContext.Products.Where(x => x.IsSale && x.IsActive).Take(12).ToList();
             return PartialView(items);
         }
-
-
     }
 }

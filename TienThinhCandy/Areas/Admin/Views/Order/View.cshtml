@@ -20,7 +20,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Mã đơn hàng</label>
-                        <p class="form-control"> @Model.Id</p>
+                        <p class="form-control"> @Model.Code</p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -62,37 +62,34 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Trạng thái vận chuyển</label>
-                        <p class="form-control">
+                        
                             @if (Model.Status == 1)
                             {
-                                <p> Chờ vận chuyển </p>
+                                <p class="form-control"> Chờ vận chuyển </p>
                             }
                             else if (Model.Status == 2)
                             {
-                                <p> Đã vận chuyển </p>
+                                <p class="form-control"> Đã vận chuyển </p>
                             }
                             else
                             {
-                                <p>Đã hoàn thành </p>
+                                <p class="form-control">Đã hoàn thành </p>
                             }
-                        </p>
+                       
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Phuong thức thanh toán</label>
-                        <p class="form-control">
-                            @if (Model.TypePayment == 1)
-                            {
-                            <p> COD </p>
+                        <label>Phương thức thanh toán</label>
+                        @if (Model.TypePayment == 1)
+                        {
+                            <p class="form-control"> COD </p>
                         }
                         else if (Model.TypePayment == 2)
                         {
-                            <p> Chuyển khoản </p>
+                            <p class="form-control"> Chuyển khoản </p>
                         }
-                        
-                            </p>
-                        </div>
+                    </div>
                 </div>
             </div>
             <div>
