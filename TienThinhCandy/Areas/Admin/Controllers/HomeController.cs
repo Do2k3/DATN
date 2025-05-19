@@ -17,13 +17,12 @@ namespace TienThinhCandy.Areas.Admin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Admin/Home
+      
         public ActionResult Index()
         {
-            
             return View();
         }
-
-        public ActionResult Detail()
+        public ActionResult StatisticalOrder()
         {
             return View();
         }

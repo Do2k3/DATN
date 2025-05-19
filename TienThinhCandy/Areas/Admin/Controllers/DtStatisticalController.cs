@@ -57,8 +57,5 @@ namespace TienThinhCandy.Areas.Admin.Controllers
                   });
             return Json(new { Data = rs }, JsonRequestBehavior.AllowGet);
         }
-      
-        
-
     }
 }

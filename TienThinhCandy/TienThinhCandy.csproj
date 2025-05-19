@@ -3264,6 +3264,7 @@
     <Content Include="Content\ckfinder\skins\v1\uipanel.css" />
     <Content Include="Content\ckfinder\translations.txt" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\TbExport\dataTable.js" />
     <Content Include="Content\template\send1.html" />
     <Content Include="Content\template\send2.html" />
     <Content Include="favicon.ico" />

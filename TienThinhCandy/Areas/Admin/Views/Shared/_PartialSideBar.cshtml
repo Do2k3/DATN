@@ -6,15 +6,14 @@
             <i class="fas fa-laugh-wink"></i>
         </div>
         <div class="sidebar-brand-text mx-3"> Quản lý cửa hàng</div>
+
+    </a>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-text mx-3">
-            Xin chào:
-            <a href="#">
-                @User.Identity.Name
-                <i class="fa fa-angle-down"></i>
-            </a>
+            Xin chào: @User.Identity.Name
         </div>
     </a>
-
+   
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
@@ -65,11 +64,11 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
            aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-box"></i>
-            <span>Đơn hàng<span class="badge bg-danger">@ViewBag.Count</span></span>
+            <span>Đơn hàng  <span class="badge bg-danger">@ViewBag.Count</span></span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/admin/Order/Handle">Đơn hàng cần xử lý<span class="badge bg-danger">@ViewBag.Count</span></a>
+                <a class="collapse-item" href="/admin/Order/Handle">Đơn hàng cần xử lý  <span class="badge bg-danger">@ViewBag.Count</span></a>
                 <a class="collapse-item" href="/admin/Order/index">Đơn hàng</a>
             </div>
         </div>
