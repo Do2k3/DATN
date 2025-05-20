@@ -46,7 +46,8 @@ apphost.exe
 *.csproj.FileListAbsolute.txt
 *.genruntimeconfig.cache
 *.csproj.user
-/packages
+packages/
+node_modules/
 /packages/Microsoft.AspNetCore.Authentication.2.3.0/.signature.p7s
 /packages/Microsoft.AspNetCore.Authentication.2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Authentication.xml
 /packages/Microsoft.AspNetCore.Authentication.2.3.0/Microsoft.AspNetCore.Authentication.2.3.0.nupkg
