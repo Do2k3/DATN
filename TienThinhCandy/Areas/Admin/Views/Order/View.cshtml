@@ -62,20 +62,23 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Trạng thái vận chuyển</label>
-                        
-                            @if (Model.Status == 1)
-                            {
-                                <p class="form-control"> Chờ vận chuyển </p>
-                            }
-                            else if (Model.Status == 2)
-                            {
-                                <p class="form-control"> Đã vận chuyển </p>
-                            }
-                            else
-                            {
-                                <p class="form-control">Đã hoàn thành </p>
-                            }
-                       
+
+                        @if (Model.Status == 4)
+                        {
+                            <p class="form-control">Đã huỷ</p>
+                        }
+                        else if (Model.Status == 2)
+                        {
+                            <p class="form-control">Đã vận chuyển</p>
+                        }
+                        else if (Model.Status == 3)
+                        {
+                            <p class="form-control">Đã hoàn thành</p>
+                        }
+                        else
+                        {
+                            <p class="form-control">Chờ vận chuyển</p>
+                        }
                     </div>
                 </div>
                 <div class="col-md-6">

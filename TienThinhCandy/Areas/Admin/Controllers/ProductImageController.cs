@@ -8,6 +8,7 @@ using TienThinhCandy.Models;
 
 namespace TienThinhCandy.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductImageController : Controller
     {
         // GET: Admin/ProductImage

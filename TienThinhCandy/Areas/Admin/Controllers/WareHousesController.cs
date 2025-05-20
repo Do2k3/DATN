@@ -9,6 +9,7 @@ using TienThinhCandy.Models.DB;
 
 namespace TienThinhCandy.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class WareHousesController : Controller
     {
         // GET: Admin/WareHouses

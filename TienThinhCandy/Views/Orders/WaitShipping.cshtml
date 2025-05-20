@@ -21,21 +21,25 @@
                     <td>@item.Code</td>
                     <td>@item.Address</td>
                     <td>
-                        @if (item.Status == 1)
+                        @if (item.Status == 4)
                         {
-                            <p> Chờ vận chuyển </p>
+                            <p>Đã huỷ</p>
                         }
                         else if (item.Status == 2)
                         {
-                            <p> Đã vận chuyển </p>
+                            <p>Đã vận chuyển</p>
+                        }
+                        else if (item.Status == 3)
+                        {
+                            <p>Đã hoàn thành</p>
                         }
                         else
                         {
-                            <p>Đã hoàn thành </p>
+                            <p>Chờ vận chuyển</p>
                         }
                     </td>
                     <td>@TienThinhCandy.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
-                    <td><a href="/chi-tiet/@item.Code-p@(item.Id)">Chi tiết</a></td>
+                    <td><a href="/chi-tiet/o@(item.Id)">Chi tiết</a></td>
                 </tr>
 
             }

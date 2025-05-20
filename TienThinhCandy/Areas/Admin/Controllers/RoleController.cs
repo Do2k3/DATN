@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace TienThinhCandy.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         // GET: Admin/Role

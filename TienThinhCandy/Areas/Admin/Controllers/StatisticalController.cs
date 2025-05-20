@@ -8,8 +8,9 @@ using TienThinhCandy.Models;
 
 namespace TienThinhCandy.Areas.Admin.Controllers
 {
-   
-        // GET: Admin/Statistical
+    [Authorize(Roles = "Admin")]
+
+    // GET: Admin/Statistical
     public class StatisticalController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

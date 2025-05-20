@@ -70,13 +70,17 @@
                                 <td>@item.Phone</td>
                                 <td>@TienThinhCandy.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
                                 <td>
-                                    @if (item.Status == 3)
+                                    @if (item.Status == 4)
                                     {
-                                        <p>Đã hoàn thành </p>
+                                        <p>Đã huỷ</p>
                                     }
                                     else if (item.Status == 2)
                                     {
                                         <p>Đã vận chuyển</p>
+                                    }
+                                    else if (item.Status == 3)
+                                    {
+                                        <p>Đã hoàn thành</p>
                                     }
                                     else
                                     {
@@ -128,7 +132,6 @@
                 <div class="form-group">
                     <label>Trạng thái vận chuyển</label>
                     <select class="form-control" id="ddTrangThai">
-                      
                         <option value="2">Đã vận chuyển</option>
                         <option value="3">Đã hoàn thành</option>
                     </select>

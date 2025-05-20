@@ -12,6 +12,7 @@ using TienThinhCandy.Models.Service;
 
 namespace TienThinhCandy.Controllers
 {
+    [Authorize]
     public class ChatbotAIController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

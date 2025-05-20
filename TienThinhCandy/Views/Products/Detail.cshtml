@@ -144,7 +144,7 @@
 
                             <!-- User Reviews -->
 
-                            <div class="col-lg-6 reviews_col" id="load_review">
+                            <div class="col-lg-6 reviews_col" id="load_data">
                                 @Html.Action("Load_Review", "Review", new { productId = Model.Id })
                             </div>
 
@@ -163,8 +163,19 @@
     </div>
 }
 
-
 @section scripts{
     <script src="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <script src="~/Content/assets/js/single_custom.js"></script>
+    <script>
+        function LoadReview() {
+            $.ajax({
+                url: '/Review/Load_Review',
+                type: 'GET',
+                success: function (rs) {
+                    $("#load_data").html(rs);
+                }
+            })
+        }
+    </script>
+    
 }

@@ -33,20 +33,26 @@ namespace TienThinhCandy.Controllers
         public ActionResult WaitShipping()
         {
            var items = db.Orders.Where( x =>x.Status == 1 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
-            return View(items);
+            return PartialView(items);
         }
 
         public ActionResult Shipped()
         {
             var items = db.Orders.Where(x => x.Status == 2 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
 
-            return View(items);
+            return PartialView(items);
         }
         public ActionResult Compelete()
         {
             var items = db.Orders.Where(x => x.Status == 3 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
 
-            return View(items);
+            return PartialView(items);
+        }
+        public ActionResult Cancel()
+        {
+            var items = db.Orders.Where(x => x.Status == 4 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
+
+            return PartialView(items);
         }
 
         public ActionResult ViewDetail(int id)
@@ -62,16 +68,20 @@ namespace TienThinhCandy.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult UpdateHuy(int id, string reason)
         {
             var item = db.Orders.Find(id);
             if (item != null)
             {
-                db.Orders.Remove(item);
+                db.Orders.Attach(item);
+                item.Status = 4;
+                item.Reason = reason;
+                db.Entry(item).Property(x => x.Status).IsModified = true;
+                db.Entry(item).Property(x => x.Reason).IsModified = true;
                 db.SaveChanges();
-                return Json(new { success = true });
+                return Json(new { message = "Success", Success = true });
             }
-            return Json(new { success = false });
+            return Json(new { message = "UnSuccess", Success = false });
         }
     }
 }

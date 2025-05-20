@@ -9,6 +9,7 @@ using PagedList;
 
 namespace TienThinhCandy.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PostsController : Controller
     {
         // GET: Admin/Posts

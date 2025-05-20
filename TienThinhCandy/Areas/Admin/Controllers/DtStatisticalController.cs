@@ -9,6 +9,7 @@ using TienThinhCandy.Models;
 
 namespace TienThinhCandy.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DtStatisticalController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

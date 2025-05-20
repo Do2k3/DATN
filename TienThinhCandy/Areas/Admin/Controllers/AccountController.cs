@@ -11,10 +11,13 @@ using TienThinhCandy.Models;
 using PagedList;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Web.UI;
+using System.Data.Entity;
+using System.Security.Claims;
+using Microsoft.Owin;
 
 namespace TienThinhCandy.Areas.Admin.Controllers
 {
-    
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -141,6 +144,9 @@ namespace TienThinhCandy.Areas.Admin.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+
+
+
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)

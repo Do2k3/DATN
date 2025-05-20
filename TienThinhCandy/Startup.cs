@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
@@ -11,7 +12,13 @@ namespace TienThinhCandy
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            
+           
+
+            // Cấu hình đăng nhập cho Admin
+           
         }
+
+
     }
 }
+
