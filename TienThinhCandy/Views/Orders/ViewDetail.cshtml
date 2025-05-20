@@ -66,17 +66,21 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Trạng thái vận chuyển</label>
-                        @if (Model.Status == 1)
+                        @if (Model.Status == 4)
                         {
-                            <p class="form-control">Chờ vận chuyển</p>
+                            <p class="form-control">Đã huỷ</p>
                         }
                         else if (Model.Status == 2)
                         {
                             <p class="form-control">Đã vận chuyển</p>
                         }
-                        else
+                        else if (Model.Status == 3)
                         {
                             <p class="form-control">Đã hoàn thành</p>
+                        }
+                        else
+                        {
+                            <p class="form-control">Chờ vận chuyển</p>
                         }
                     </div>
                 </div>
@@ -87,6 +91,15 @@
                     </div>
                 </div>
             </div>
+            @if (Model.Status == 4)
+            {
+                <div class="row">
+                    <div class="form-group">
+                        <label>Lý do huỷ đơn</label>
+                        <p class="form-control"> @Model.Reason </p>
+                    </div>
+                </div>
+            }
             <div class="row">
                 <div class="col-md-12">
                     <h2>Danh sách sản phẩm</h2>

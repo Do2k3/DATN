@@ -9,8 +9,8 @@ using TienThinhCandy.Models.DB;
 
 namespace TienThinhCandy.Areas.Admin.Controllers
 {
-  
-        // GET: Admin/Order
+    [Authorize(Roles = "Admin")]
+    // GET: Admin/Order
     public class OrderController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
@@ -67,7 +67,7 @@ namespace TienThinhCandy.Areas.Admin.Controllers
             {
                 page = 1;
             }
-            IEnumerable<Order> items = _db.Orders.Where(x => x.Status != 3 && x.Status != 2).OrderByDescending(x => x.CreatedDate).ToList();
+            IEnumerable<Order> items = _db.Orders.Where(x => x.Status != 3 && x.Status != 2 && x.Status != 4).OrderByDescending(x => x.CreatedDate).ToList();
             if (!string.IsNullOrEmpty(SearchText))
             {
                 items = items.Where(x => x.Code.Contains(SearchText) || x.CustomerName.Contains(SearchText) || x.Phone.Contains(SearchText));

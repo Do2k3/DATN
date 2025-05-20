@@ -12,27 +12,27 @@
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_styles.css">
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_responsive.css">
 <style>
-        .tabs_section_container {
-            margin-top: 180px;
-        }
+    .tabs_section_container {
+        margin-top: 180px;
+    }
 
-        .row item-new {
-            margin-bottom: 20px;
-        }
+    .row item-new {
+        margin-bottom: 20px;
+    }
 
-        .title-new {
-            font-size: 24px;
-            border-bottom: 1px solid;
-            padding: 15px 0;
-            margin-bottom: 25px;
-        }
+    .title-new {
+        font-size: 24px;
+        border-bottom: 1px solid;
+        padding: 15px 0;
+        margin-bottom: 25px;
+    }
 
-        .img-box {
-            max-height: 100px;
-            max-width: 100px;
-        }
-    </style>
-<div class="tabs_section_container"> 
+    .img-box {
+        max-height: 100px;
+        max-width: 100px;
+    }
+</style>
+<div class="tabs_section_container">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -42,15 +42,14 @@
                         <li class="tab" data-active-tab="tab_2"><span>Chờ vận chuyển</span></li>
                         <li class="tab" data-active-tab="tab_3"><span>Đã vận chuyển </span></li>
                         <li class="tab" data-active-tab="tab_4"><span>Hoàn thành</span></li>
+                        <li class="tab" data-active-tab="tab_5"><span>Đã huỷ</span></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
-
                 <!-- Tab Description -->
-
                 <div id="tab_1" class="tab_container active">
                     <div class="row">
                         <table class="table">
@@ -75,9 +74,14 @@
                                             <td>@item.Code</td>
                                             <td>@item.Address</td>
                                             <td>
-                                                @if (item.Status == 1)
+                                                @if (item.Status == 4)
                                                 {
-                                                    <p> Chờ vận chuyển </p>
+                                                    <p>Đã huỷ </p>
+
+                                                }
+                                                else if (item.Status == 3)
+                                                {
+                                                    <p> Đã hoàn thành </p>
                                                 }
                                                 else if (item.Status == 2)
                                                 {
@@ -85,13 +89,13 @@
                                                 }
                                                 else
                                                 {
-                                                    <p>Đã hoàn thành </p>
+                                                    <p> Chờ vận chuyển </p>
                                                 }
                                             </td>
                                             <td>@TienThinhCandy.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
                                             <td><a href="/chi-tiet/o@(item.Id)">Chi tiết</a></td>
                                             <td>
-                                                @if (item.Status == 1)
+                                                @if (item.Status !=2 && item.Status != 4 && item.Status != 3)
                                                 {
                                                     <a href="#" data-id="@item.Id" class="btn btn-danger btnHuy">Huỷ</a>
                                                 }
@@ -128,34 +132,72 @@
                         @Html.Action("Compelete", "Orders")
                     </div>
                 </div>
+                <div id="tab_5" class="tab_container">
+                    <div class="row">
+                        @Html.Action("Cancel", "Orders")
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Lý do</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="txtOrderId" value="0" />
+                <div class="form-group">
+                    <label>Lý do</label>
+                    <textarea class="form-control" id="txtLyDoHuy" rows="3" placeholder="Nhập lý do hủy..."></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary " id="btnXacNhan">Xác nhận huỷ</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script src="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+<script src="~/Content/assets/js/single_custom.js"></script>
 
 @section scripts{
-    <script src="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
-    <script src="~/Content/assets/js/single_custom.js"></script>
     <script>
         $(document).ready(function () {
-            $('body').on('click', '.btnHuy', function () {
-                var id = $(this).data('id');
-                var conf = confirm('Bạn có muốn xoá hay không?');
-                if (conf === true) {
-                    $.ajax({
-                        url: '/orders/delete',
-                        type: 'POST',
-                        data: { id: id },
-                        success: function (rs) {
-                            if (rs.success) {
-                                $('#tr_' + id).remove();
-                            }
+            $("body").on("click", ".btnHuy", function () {
+                var id = $(this).data("id");
+                $("#txtOrderId").val(id);
+                $("#modal-default").modal("show");
+            });
+
+            $("body").on("click", "#btnXacNhan", function () {
+                var id = $("#txtOrderId").val();
+                var reason = $("#txtLyDoHuy").val();
+
+                $.ajax({
+                    url: '/orders/UpdateHuy',
+                    type: 'POST',
+                    data: { id: id, reason: reason },
+                    success: function (rs) {
+                        if (rs.Success) {
+                            alert("Đơn hàng được huỷ thành công")
+                            location.reload();
                         }
-                    })
-                }
+                    }
+                })
             })
-        })
+        });
     </script>
 }
+
 
 

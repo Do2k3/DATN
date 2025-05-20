@@ -9,6 +9,7 @@ using TienThinhCandy.Models;
 
 namespace TienThinhCandy.Controllers
 {
+    [Authorize]
     public class WishListController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

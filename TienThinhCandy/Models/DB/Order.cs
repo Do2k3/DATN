@@ -29,6 +29,7 @@ namespace TienThinhCandy.Models.DB
         public decimal TotalAmount { get; set; }
         public int Quantity { get; set; }
         public int Status { get; set; }
+        public string Reason { get; set; }
         public int TypePayment { get; set; }
         public string CustomerId {  get; set; }
         

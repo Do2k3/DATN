@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace TienThinhCandy.Controllers
 {
+    [Authorize]
     public class ContactController : Controller
     {
         // GET: Contact

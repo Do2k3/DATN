@@ -11,6 +11,7 @@ using DocumentFormat.OpenXml.Drawing;
 
 namespace TienThinhCandy.Controllers
 {
+    [Authorize]
     public class ReviewController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();

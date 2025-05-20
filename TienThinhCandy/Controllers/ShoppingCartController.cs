@@ -99,7 +99,7 @@ namespace TienThinhCandy.Controllers
                         Quantity = x.Quantity,
                         Price = x.Price,
                     }));
-                    
+                    order.Status = 1;
                     order.TotalAmount = cart.items.Sum(x => (x.Price * x.Quantity));
                     order.Status = req.Status;
                     order.TypePayment = req.TypePayment;
@@ -149,15 +149,15 @@ namespace TienThinhCandy.Controllers
                     TienThinhCandy.Common.Common.SendMail("Tiến Thịnh- Một thoáng kinh kỳ", "Đơn hàng #" + order.Code, contentCustomer.ToString(), order.Email);
                     //gửi mail cho Admin
                     string contentAdmin = System.IO.File.ReadAllText(Server.MapPath("~/Content/template/send1.html"));
-                    contentCustomer = contentCustomer.Replace("{{MaDon}}", order.Code);
-                    contentCustomer = contentCustomer.Replace("{{SanPham}}", strSP);
-                    contentCustomer = contentCustomer.Replace("{{ThanhTien}}", TienThinhCandy.Common.Common.FormatNumber(thanhtien, 0));
-                    contentCustomer = contentCustomer.Replace("{{TongTien}}", TienThinhCandy.Common.Common.FormatNumber(tongtien, 0));
-                    contentCustomer = contentCustomer.Replace("{{TenKhachHang}}", order.CustomerName);
-                    contentCustomer = contentCustomer.Replace("{{DiaChi}}", order.Address);
-                    contentCustomer = contentCustomer.Replace("{{Phone}}", order.Phone);
-                    contentCustomer = contentCustomer.Replace("{{Email}}", order.Email);
-                    contentCustomer = contentCustomer.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
+                    contentAdmin = contentAdmin.Replace("{{MaDon}}", order.Code);
+                    contentAdmin = contentAdmin.Replace("{{SanPham}}", strSP);
+                    contentAdmin = contentAdmin.Replace("{{ThanhTien}}", TienThinhCandy.Common.Common.FormatNumber(thanhtien, 0));
+                    contentAdmin = contentAdmin.Replace("{{TongTien}}", TienThinhCandy.Common.Common.FormatNumber(tongtien, 0));
+                    contentAdmin = contentAdmin.Replace("{{TenKhachHang}}", order.CustomerName);
+                    contentAdmin = contentAdmin.Replace("{{DiaChi}}", order.Address);
+                    contentAdmin = contentAdmin.Replace("{{Phone}}", order.Phone);
+                    contentAdmin = contentAdmin.Replace("{{Email}}", order.Email);
+                    contentAdmin = contentAdmin.Replace("{{NgayDat}}", DateTime.Now.ToString("dd/MM/yyyy"));
                     TienThinhCandy.Common.Common.SendMail("Tiến Thịnh- Một thoáng kinh kỳ", "Đơn hàng #" + order.Code, contentAdmin.ToString(), ConfigurationManager.AppSettings["EmailAdmin"]);
                     code = new { Success = true, Code = req.TypePayment, Url = "" };
                     //var url = "";
