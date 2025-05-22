@@ -55,6 +55,7 @@
                         <th>Phương thức thanh toán</th>
                         <th>Ngày tạo</th>
                         <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,6 +96,15 @@
                                     <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
                                     <a href="#" class="btn btn-sm btn-danger btnUpdate" data-id="@item.Id">Cập nhật</a>
                                 </td>
+                                @if (item.Status == 3)
+                                {
+                                    <td>
+                                        <a href="@Url.Action("GetListProduct", "Order", new { orderId = item.Id })"
+                                           class="btn btn-sm btn-danger">Hoá đơn</a>
+
+                                    </td>
+                                   
+                                }
                             </tr>
                             i++;
                         }
