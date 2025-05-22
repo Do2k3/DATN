@@ -390,6 +390,7 @@
     <Compile Include="Models\DB\ChatbotData.cs" />
     <Compile Include="Models\DB\ThongKeTruyCap.cs" />
     <Compile Include="Models\DB\WareHouse.cs" />
+    <Compile Include="Models\InvoiceViewModel.cs" />
     <Compile Include="Models\Payments\VnPayLibrary.cs" />
     <Compile Include="Models\Service\GPTService.cs" />
     <Compile Include="Models\SettingSystemViewModel.cs" />
@@ -3650,6 +3651,7 @@
     <Content Include="Areas\Admin\Views\Account\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\WareHouses\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Handle.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\GetListProduct.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

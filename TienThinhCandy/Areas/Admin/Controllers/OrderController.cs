@@ -93,6 +93,33 @@ namespace TienThinhCandy.Areas.Admin.Controllers
             }
             return Json(new { message = "UnSuccess", Success = false });
         }
+
+        public ActionResult Invoice ()
+        {
+            return View();
+        }
+         
+        public ActionResult GetListProduct(int orderId)
+        {
+            var productsList = from o in _db.Orders
+                                  join od in _db.OrderDetails on o.Id equals od.OrderId
+                                  join p in _db.Products on od.ProductId equals p.Id
+                                  where o.Id == orderId
+                                  select new InvoiceViewModel
+                                  {
+                                      CustomerName=o.CustomerName,
+                                      Address = o.Address,
+                                      OrderCode = o.Code,
+                                      Phone = o.Phone,
+                                      OrderId = o.Id,
+                                      OrderDate = o.CreatedDate,
+                                      ProductName = p.Title,
+                                      Quantity = od.Quantity,
+                                      UnitPrice = p.Price,
+                                      TotalPrice = od.Quantity * p.Price
+                                  };
+            return View(productsList.ToList());
+        }
     }
     
 }
