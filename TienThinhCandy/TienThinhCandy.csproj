@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.4.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
     <Reference Include="CKFinder, Version=2.4.0.2631, Culture=neutral, PublicKeyToken=579e7adc719a1423, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Content\ckfinder\bin\Release\CKFinder.dll</HintPath>
@@ -68,6 +71,12 @@
     </Reference>
     <Reference Include="ExcelNumberFormat, Version=1.1.0.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.1.0\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.4\lib\net461\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.4, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13.4\lib\net461\itextsharp.xmlworker.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Authentication, Version=2.3.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Authentication.2.3.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.dll</HintPath>
@@ -162,6 +171,9 @@
     </Reference>
     <Reference Include="RBush, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RBush.4.0.0\lib\net47\RBush.dll</HintPath>
+    </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
     </Reference>
     <Reference Include="SixLabors.Fonts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
       <HintPath>..\packages\SixLabors.Fonts.1.0.0\lib\netstandard2.0\SixLabors.Fonts.dll</HintPath>
@@ -385,6 +397,10 @@
     <Compile Include="Migrations\202505191511058_updateOrders.cs" />
     <Compile Include="Migrations\202505191511058_updateOrders.Designer.cs">
       <DependentUpon>202505191511058_updateOrders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202505221607287_dataupdate.cs" />
+    <Compile Include="Migrations\202505221607287_dataupdate.Designer.cs">
+      <DependentUpon>202505221607287_dataupdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Common\ThongKeTruyCap.cs" />
     <Compile Include="Models\DB\ChatbotData.cs" />
@@ -3360,6 +3376,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -3652,6 +3672,8 @@
     <Content Include="Areas\Admin\Views\WareHouses\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Handle.cshtml" />
     <Content Include="Areas\Admin\Views\Order\GetListProduct.cshtml" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Areas\Admin\Views\Order\_Invoice.cshtml" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
@@ -3810,6 +3832,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505191511058_updateOrders.resx">
       <DependentUpon>202505191511058_updateOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202505221607287_dataupdate.resx">
+      <DependentUpon>202505221607287_dataupdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

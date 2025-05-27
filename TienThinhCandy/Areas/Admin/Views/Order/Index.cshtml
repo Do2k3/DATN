@@ -38,7 +38,7 @@
 <section class="content">
 
     <!-- Default box -->
-    <div class="card">
+    <div class="card" id="exportSection">
         <div class="card-header">
             <h4 class="card-title">Danh sách đơn hàng</h4>
         </div>
@@ -73,19 +73,23 @@
                                 <td>
                                     @if (item.Status == 4)
                                     {
-                                        <p>Đã huỷ</p>
+                                        <p>Đã hoàn thành</p>
                                     }
                                     else if (item.Status == 2)
                                     {
-                                        <p>Đã vận chuyển</p>
+                                        <p>Chờ vận chuyển</p>
                                     }
                                     else if (item.Status == 3)
                                     {
-                                        <p>Đã hoàn thành</p>
+                                        <p>Đã vận chuyển</p>
+                                    } 
+                                    else if(item.Status == 5 )
+                                    {
+                                        <p>Đã huỷ</p>
                                     }
                                     else
                                     {
-                                        <p>Chờ vận chuyển</p>
+                                        <p>Chờ xác nhận</p>
                                     }
                                 </td>
                                 <td>
@@ -96,12 +100,10 @@
                                     <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
                                     <a href="#" class="btn btn-sm btn-danger btnUpdate" data-id="@item.Id">Cập nhật</a>
                                 </td>
-                                @if (item.Status == 3)
+                                @if (item.Status == 4)
                                 {
                                     <td>
-                                        <a href="@Url.Action("GetListProduct", "Order", new { orderId = item.Id })"
-                                           class="btn btn-sm btn-danger">Hoá đơn</a>
-
+                                        <button class="btn btn-danger" onclick="window.location.href='/Order/ExportPdf?orderId=@item.Id'">Xuất PDF</button>
                                     </td>
                                    
                                 }
@@ -142,8 +144,8 @@
                 <div class="form-group">
                     <label>Trạng thái vận chuyển</label>
                     <select class="form-control" id="ddTrangThai">
-                        <option value="2">Đã vận chuyển</option>
-                        <option value="3">Đã hoàn thành</option>
+                        <option value="3">Đã vận chuyển</option>
+                        <option value="4">Đã hoàn thành</option>
                     </select>
                 </div>
              

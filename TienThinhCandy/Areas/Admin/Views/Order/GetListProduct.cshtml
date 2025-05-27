@@ -1,88 +1,90 @@
-﻿
-@{
-    ViewBag.Title = "GetListProduct";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-}
+﻿@model List<TienThinhCandy.Models.InvoiceViewModel>
 
-@model List<TienThinhCandy.Models.InvoiceViewModel>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hóa Đơn PDF</title>
+    <style>
+        body {
+            width: 210mm; /* Chiều rộng chuẩn của A4 */
+            height: 297mm; /* Chiều cao chuẩn của A4 */
+            margin: 20mm auto; /* Canh giữa nội dung */
+            padding: 10mm;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+        .container {
+            float: right;
+        }
+        .tb {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row ">
-            <div class="col-sm-6">
-                <h3>Xuất hoá đơn</h3>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/home/index">Trang chủ</a></li>
-                    <li class="breadcrumb-item active"><a href="/admin/category">Đơn hàng</a></li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-
-<section class="content">
-    <!-- Default box -->
-    <div class="card" style="border: 2px solid">
-        <div class="card-header">
-            <h4>Hóa Đơn Đơn Hàng: @Model.First().OrderCode</h4>
-        </div>
-
-        <div class="card-body">
-            <div>
-                <p style="font-size:20px">Khách hàng: @Model.First().CustomerName</p>
-                <p style="font-size:20px">Địa chỉ: @Model.First().Address</p>
-                <p style="font-size:20px">Số điện thoại: @Model.First().Phone</p>
-                <p style="font-size:20px">Ngày đặt: @Model.First().OrderDate.ToString("dd/MM/yyyy")</p>
-            </div>
-            <table class="table table-bordered" border="1">
-                <thead>
-                    <tr>
-                        <th>Tên sản phẩm</th>
-                        <th>Số lượng</th>
-                        <th>Đơn giá</th>
-                        <th>Thành tiền</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var product in Model)
-                    {
-                        <tr>
-                            <td>@product.ProductName</td>
-                            <td>@product.Quantity</td>
-                            <td>@TienThinhCandy.Common.Common.FormatNumber(@product.UnitPrice, 0)</td>
-                            <td>@TienThinhCandy.Common.Common.FormatNumber(@product.TotalPrice, 0)</td>
-                        </tr>
-                    }
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3"><strong>Tổng tiền</strong></td>
-                        <td><strong>@TienThinhCandy.Common.Common.FormatNumber(Model.Sum(p => p.TotalPrice), 0)</strong></td>
-                    </tr>
-                </tfoot>
-            </table>
-
-        </div>
-        <!-- /.card-body -->
-        <!-- /.card-footer-->
+        .th {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p style="font-size: 20px ; text-align: center">Ô mai Tiến Thịnh - Một thoáng kinh kỳ</p>
+        <p style="font-size: 20px ; text-align: center">21 Hàng Đường - Hoàn Kiếm - Hà Nội</p>
+        <p style="font-size: 20px ; text-align: center">024 3828 2642</p>
     </div>
-    <div class="card-footer">
-        <div class="card-tools">
-            <a href="#" class="btn btn-primary">Xuất pDf</a>
-        </div>
-    </div>
-    <!-- /.card -->
+    <h2 style="font-size:20px ;text-align:center;">Hóa Đơn</h2>
+    <p><strong>Mã đơn hàng:</strong> @Model.First().OrderCode</p>
+    <p><strong>Khách hàng:</strong> @Model.First().CustomerName</p>
+    <p><strong>Địa chỉ:</strong> @Model.First().Address</p>
+    <p><strong>Số điện thoại:</strong> @Model.First().Phone</p>
+    <p><strong>Ngày đặt:</strong> @Model.First().OrderDate.ToString("dd/MM/yyyy")</p>
 
-</section>
-<script src="~/Content/assets/plugins/moment/moment.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="~/Content/TbExport/dataTable.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.dataTables.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js"></script>
+    <h3>Chi tiết sản phẩm</h3>
+    <table class="tb">
+        <thead>
+            <tr>
+                <th class="th">Tên sản phẩm</th>
+                <th class="th">Số lượng</th>
+                <th class="th">Đơn giá</th>
+                <th class="th">Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td class="th">@product.ProductName</td>
+                    <td class="th">@product.Quantity</td>
+                    <td class="th">@TienThinhCandy.Common.Common.FormatNumber(product.UnitPrice, 0)</td>
+                    <td class="th">@TienThinhCandy.Common.Common.FormatNumber(product.TotalPrice, 0)</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="th" colspan="3"><strong>Tổng tiền</strong></td>
+                <td class="th"><strong>@TienThinhCandy.Common.Common.FormatNumber(Model.Sum(p => p.TotalPrice), 0)</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <h4 style="text-align:right; font-style:italic;">
+        Ngày @Model.First().OrderDate.Day tháng @Model.First().OrderDate.Month năm @Model.First().OrderDate.Year
+    </h4>
+
+    <table style="width:100%; margin-top:30px; border-collapse: unset">
+        <tr>
+            <th style="width:50%; text-align:center;">Khách hàng</th>
+            <th style="width:50%; text-align:center;">Người bán</th>
+        </tr>
+        <tr>
+            <td style="text-align:center; padding:10px;">@Model.First().CustomerName</td>
+            <td style="text-align:center; padding:10px;">Ô mai Tiến Thịnh</td>
+        </tr>
+    </table>
+
+
+</body>
+</html>

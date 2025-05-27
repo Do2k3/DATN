@@ -22,19 +22,23 @@
                     <td>
                         @if (item.Status == 4)
                         {
-                            <p>Đã huỷ</p>
+                            <p>Đã hoàn thành</p>
                         }
                         else if (item.Status == 2)
                         {
-                            <p> Đã vận chuyển </p>
+                            <p>Chờ vận chuyển</p>
                         }
                         else if (item.Status == 3)
                         {
-                            <p>Đã hoàn thành </p>
+                            <p>Đã vận chuyển</p>
+                        }
+                        else if (item.Status == 5)
+                        {
+                            <p>Đã huỷ</p>
                         }
                         else
                         {
-                            <p> Chờ vận chuyển </p> 
+                            <p>Chờ xác nhận</p>
                         }
                     </td>
                     <td>@TienThinhCandy.Common.Common.FormatNumber(item.TotalAmount, 0)</td>

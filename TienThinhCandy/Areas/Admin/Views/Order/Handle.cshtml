@@ -71,7 +71,7 @@
                                 <td>@item.Phone</td>
                                 <td>@TienThinhCandy.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
                                 <td>
-                                        <p>Chờ vận chuyển</p>
+                                        <p>Chờ xác nhận</p>
                                 </td>
                                 <td>
                                     @(item.TypePayment == 1?"COD": "Chuyển khoản")
@@ -79,7 +79,7 @@
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td>
                                     <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
-                                    <a href="#" class="btn btn-sm btn-danger btnUpdate" data-id="@item.Id">Cập nhật</a>
+                                    <a href="#" class="btn btn-sm btn-danger btnUpdate" data-id="@item.Id">Xác nhận</a>
                                 </td>
                             </tr>
                             i++;
