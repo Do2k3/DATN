@@ -24,7 +24,7 @@
                     <td>@item.Price</td>
                     <td>@item.Quantity</td>
                     <td>@TienThinhCandy.Common.Common.FormatNumber((item.Price * item.Quantity), 0)</td>
-                    @if (item.Order.Status == 3)
+                    @if (item.Order.Status == 4)
                     {
                         <td><a href="/chi-tiet/@item.Product.Alias-p@(item.Product.Id)" class="btn btn-primary">Đánh giá</a></td>
                     }

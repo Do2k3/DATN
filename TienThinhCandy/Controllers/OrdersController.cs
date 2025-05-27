@@ -30,27 +30,32 @@ namespace TienThinhCandy.Controllers
             return View(items);
         }
         
+        public ActionResult Confitmation()
+        {
+            var items = db.Orders.Where(x => x.Status == 1 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
+            return PartialView(items);
+        }
         public ActionResult WaitShipping()
         {
-           var items = db.Orders.Where( x =>x.Status == 1 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
+           var items = db.Orders.Where( x =>x.Status == 2 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
             return PartialView(items);
         }
 
         public ActionResult Shipped()
         {
-            var items = db.Orders.Where(x => x.Status == 2 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
+            var items = db.Orders.Where(x => x.Status == 3 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
 
             return PartialView(items);
         }
         public ActionResult Compelete()
         {
-            var items = db.Orders.Where(x => x.Status == 3 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
+            var items = db.Orders.Where(x => x.Status == 4 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
 
             return PartialView(items);
         }
         public ActionResult Cancel()
         {
-            var items = db.Orders.Where(x => x.Status == 4 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
+            var items = db.Orders.Where(x => x.Status == 5 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
 
             return PartialView(items);
         }
@@ -74,7 +79,7 @@ namespace TienThinhCandy.Controllers
             if (item != null)
             {
                 db.Orders.Attach(item);
-                item.Status = 4;
+                item.Status = 5;
                 item.Reason = reason;
                 db.Entry(item).Property(x => x.Status).IsModified = true;
                 db.Entry(item).Property(x => x.Reason).IsModified = true;
