@@ -402,6 +402,10 @@
     <Compile Include="Migrations\202505221607287_dataupdate.Designer.cs">
       <DependentUpon>202505221607287_dataupdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202506021544538_updateproductsale.cs" />
+    <Compile Include="Migrations\202506021544538_updateproductsale.Designer.cs">
+      <DependentUpon>202506021544538_updateproductsale.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Common\ThongKeTruyCap.cs" />
     <Compile Include="Models\DB\ChatbotData.cs" />
     <Compile Include="Models\DB\ThongKeTruyCap.cs" />
@@ -3835,6 +3839,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202505221607287_dataupdate.resx">
       <DependentUpon>202505221607287_dataupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202506021544538_updateproductsale.resx">
+      <DependentUpon>202506021544538_updateproductsale.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

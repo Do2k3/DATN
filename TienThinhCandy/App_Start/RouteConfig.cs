@@ -21,7 +21,7 @@ namespace TienThinhCandy
             );
             routes.MapRoute(
              name: "OrdersDetail",
-             url: "chi-tiet/o{id}",
+             url: "don-hang/{id}-o{code}",
              defaults: new { controller = "Orders", action = "ViewDetail", alias = UrlParameter.Optional },
              namespaces: new[] { "TienThinhCandy.Controllers" }
             );

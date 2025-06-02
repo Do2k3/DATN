@@ -69,7 +69,7 @@ namespace TienThinhCandy.Controllers
         }
         public ActionResult Partial_ProductSales()
         {
-            var items = _dbContext.Products.Where(x => x.IsSale && x.IsActive).Take(12).ToList();
+            var items = _dbContext.WareHouse.OrderByDescending(x => x.PurchaseQuantity).Take(12).ToList();
             return PartialView(items);
         }
     }

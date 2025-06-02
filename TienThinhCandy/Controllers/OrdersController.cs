@@ -60,7 +60,7 @@ namespace TienThinhCandy.Controllers
             return PartialView(items);
         }
 
-        public ActionResult ViewDetail(int id)
+        public ActionResult ViewDetail(int? id)
         {
             var item = db.Orders.Find(id);
             return View(item);

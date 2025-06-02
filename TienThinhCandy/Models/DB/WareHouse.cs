@@ -21,6 +21,7 @@ namespace TienThinhCandy.Models.DB
         [Required(ErrorMessage = ("Không được để trống tên sản phẩm"))]
         [StringLength(250)]
         public string Title { get; set; }
+        public string Alias { get; set; }
         public string ProductCode { get; set; }
         public int ProductCategoryId { get; set; }
         public string Image { get; set; }
