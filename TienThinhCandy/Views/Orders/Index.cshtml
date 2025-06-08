@@ -74,26 +74,29 @@
                                             <td>@item.Code</td>
                                             <td>@item.Address</td>
                                             <td>
-                                                @if (item.Status == 4)
+                                                @if (item.Status == 5)
                                                 {
                                                     <p>Đã huỷ </p>
-
                                                 }
-                                                else if (item.Status == 3)
+                                                else if (item.Status == 4)
                                                 {
                                                     <p> Đã hoàn thành </p>
                                                 }
-                                                else if (item.Status == 2)
+                                                else if (item.Status == 3)
                                                 {
                                                     <p> Đã vận chuyển </p>
                                                 }
-                                                else
+                                                else if (item.Status == 2)
                                                 {
                                                     <p> Chờ vận chuyển </p>
                                                 }
+                                                else
+                                                {
+                                                    <p> Chờ xác nhận </p>
+                                                }
                                             </td>
                                             <td>@TienThinhCandy.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
-                                            <td><a href="/chi-tiet/o@(item.Id)">Chi tiết</a></td>
+                                            <td><a href="/don-hang/@item.Id-o@(item.Code)">Chi tiết</a></td>
                                             <td>
                                                 @if (item.Status !=2 && item.Status != 4 && item.Status != 3)
                                                 {

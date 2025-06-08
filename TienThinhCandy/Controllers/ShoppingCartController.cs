@@ -12,8 +12,10 @@ using TienThinhCandy.Models.Payments;
 
 namespace TienThinhCandy.Controllers
 {
+    [Authorize]
     public class ShoppingCartController : Controller
     {
+        
         private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -170,7 +172,6 @@ namespace TienThinhCandy.Controllers
                     //return RedirectToAction("CheckOutSuccess");
                 }
             }
-
             return Json(code);
         }
 
@@ -346,6 +347,11 @@ namespace TienThinhCandy.Controllers
             var checkProduct = db.Products.FirstOrDefault(x => x.Id == id);
             if (checkProduct != null)
             {
+                if (quantity > checkProduct.Quantity)
+                {
+                    code = new { Success = false, msg = "Số lượng yêu cầu vượt quá trong kho!", code = -2, Count = 0 };
+                    return Json(code);
+                }
                 ShoppingCart cart = (ShoppingCart)Session["Cart"];
                 if (cart == null)
                 {
@@ -414,13 +420,20 @@ namespace TienThinhCandy.Controllers
         [HttpPost]
         public ActionResult Update(int id, int quantity)
         {
+            var code = new { Success = false, msg = "",};
+            var checkProduct = db.Products.FirstOrDefault(x => x.Id == id);
+            if (quantity > checkProduct.Quantity)
+            {
+                code = new { Success = false, msg = "Số lượng yêu cầu vượt quá trong kho!" };
+                return Json(code);
+            }
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
             if (cart != null)
             {
                 cart.UpdateQuantity(id, quantity);
-                return Json(new { success = true });
+                code = new { Success = true, msg = "" };
             }
-            return Json(new { success = false });
+            return Json(code);
         }
 
         

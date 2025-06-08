@@ -84,9 +84,11 @@ namespace TienThinhCandy.Areas.Admin.Controllers
             var pageSize = 10;
             ViewBag.Page = pageNumber;
             ViewBag.PageSize = pageSize;
-            ViewBag.Count = items.Count();
+            TempData["Count"] = items.Count();
             return View(items.ToPagedList(pageNumber, pageSize)); 
         }
+
+
         [HttpPost]
         public ActionResult Update(int id)
         {

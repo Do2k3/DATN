@@ -46,7 +46,6 @@
                                             {
                                                 <li><img src="@item.Image" alt="" data-image="@item.Image"></li>
                                             }
-
                                         }
 
                                         @*<li class="active"><img src="images/single_2_thumb.jpg" alt="" data-image="images/single_2.jpg"></li>
@@ -67,18 +66,20 @@
             <div class="col-lg-5">
                 <div class="product_details">
                     <div class="product_details_title">
+                        <p class="o-hidden" data-id="@Model.Id"></p>
                         <h2>@Model.Title</h2>
                         <p>@Model.Title</p>
                         <p>Lượt xem: @Model.ViewCount</p>
+                        <p data-id="@Model.Quantity">Số lượng trong còn: @Model.Quantity</p>
                     </div>
-                    @if (Model.PriceSale > 0)
+                    @if (Model.PriceSale > 0 && Model.PriceSale < Model.Price)
                     {
                         <div class="original_price">@TienThinhCandy.Common.Common.FormatNumber(Model.Price, 0)</div>
                         <div class="product_price">@TienThinhCandy.Common.Common.FormatNumber(Model.PriceSale, 0)</div>
                     }
                     else
                     {
-                        <div class="original_price">@TienThinhCandy.Common.Common.FormatNumber(Model.Price, 0)</div>
+                        <div class="product_price">@TienThinhCandy.Common.Common.FormatNumber(Model.Price, 0)</div>
                     }
 
                     <ul class="star_rating">
@@ -176,6 +177,7 @@
                 }
             })
         }
+        
     </script>
     
 }

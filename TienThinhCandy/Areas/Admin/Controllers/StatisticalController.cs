@@ -21,6 +21,45 @@ namespace TienThinhCandy.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        //public ActionResult GetStatistical(string fromDate, string toDate)
+        //{
+        //    var query = from o in db.Orders
+        //                join od in db.OrderDetails
+        //                on o.Id equals od.OrderId
+        //                join p in db.Products
+        //                on od.ProductId equals p.Id
+        //                select new
+        //                {
+        //                    Status = o.Status,
+        //                    CreatedDate = o.CreatedDate,
+        //                    Quantity = od.Quantity,
+        //                    Price = od.Price,
+        //                    OriginalPrice = p.OriginalPrice
+        //                };
+        //    if (!string.IsNullOrEmpty(fromDate))
+        //    {
+        //        DateTime startDate = DateTime.ParseExact(fromDate, "dd/MM/yyyy", null);
+        //        query = query.Where(d => d.CreatedDate >= startDate);
+        //    }
+        //    if (!string.IsNullOrEmpty(toDate))
+        //    {
+        //        DateTime endDate = DateTime.ParseExact(toDate, "dd/MM/yyyy", null);
+        //        query = query.Where(d => d.CreatedDate == endDate);
+        //    }
+        //    var rs = query.GroupBy(x => DbFunctions.TruncateTime(x.CreatedDate)).Select(x => new
+        //    {
+        //        Date = x.Key.Value,
+        //        TotalBuy = x.Sum(y => y.Quantity * y.OriginalPrice),
+        //        TotalSell = x.Sum(y => y.Quantity * y.Price),
+
+        //    }).Select(x => new
+        //    {
+        //        Date = x.Date,
+        //        DoanhThu = x.TotalSell,
+        //        LoiNhuan = x.TotalSell - x.TotalBuy,
+        //    });
+        //    return Json(new { Data = rs }, JsonRequestBehavior.AllowGet);
+        //}
         public ActionResult GetStatistical(string fromDate, string toDate)
         {
             var query = from o in db.Orders
@@ -28,13 +67,16 @@ namespace TienThinhCandy.Areas.Admin.Controllers
                         on o.Id equals od.OrderId
                         join p in db.Products
                         on od.ProductId equals p.Id
+                        where o.Status == 4 // Chỉ lấy các đơn hàng có status == 4
                         select new
                         {
+                            Status = o.Status,
                             CreatedDate = o.CreatedDate,
                             Quantity = od.Quantity,
                             Price = od.Price,
                             OriginalPrice = p.OriginalPrice
                         };
+
             if (!string.IsNullOrEmpty(fromDate))
             {
                 DateTime startDate = DateTime.ParseExact(fromDate, "dd/MM/yyyy", null);
@@ -43,24 +85,25 @@ namespace TienThinhCandy.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(toDate))
             {
                 DateTime endDate = DateTime.ParseExact(toDate, "dd/MM/yyyy", null);
-                query = query.Where(d => d.CreatedDate == endDate);
+                query = query.Where(d => d.CreatedDate <= endDate);
             }
+
             var rs = query.GroupBy(x => DbFunctions.TruncateTime(x.CreatedDate)).Select(x => new
             {
                 Date = x.Key.Value,
                 TotalBuy = x.Sum(y => y.Quantity * y.OriginalPrice),
                 TotalSell = x.Sum(y => y.Quantity * y.Price),
-
             }).Select(x => new
             {
                 Date = x.Date,
                 DoanhThu = x.TotalSell,
                 LoiNhuan = x.TotalSell - x.TotalBuy,
             });
+
             return Json(new { Data = rs }, JsonRequestBehavior.AllowGet);
         }
 
-        
+
         public ActionResult StatisticalOrder()
         {
             var query = db.Orders

@@ -221,6 +221,7 @@
 
        
         $(function () {
+            var CountXN = 0;
             var CountCVC = 0;
             var CountDVC = 0;
             var CountDHT = 0;
@@ -231,14 +232,16 @@
                 type: 'GET',
                 success: function (response) {
                     $.each(response.Data, function (i, item) {
-                        if (item.Status == 4) {
+                        if (item.Status == 5) {
                             CountDH = item.SoLuong;
+                        } else if (item.Status == 4) {
+                            CountDHT = item.SoLuong;
                         } else if (item.Status == 3) {
-                            CountDHT = item.SoLuong ;
-                        } else if (item.Status == 2) {
                             CountDVC = item.SoLuong ;
-                        } else {
+                        } else if (item.Status == 2) {
                             CountCVC = item.SoLuong ;
+                        } else {
+                            CountXN = item.SoLuong ;
                         }
                     });
                     var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
@@ -248,11 +251,12 @@
                             'Đã hoàn thành',
                             'Đã vận chuyển',
                             'Chờ vận chuyển',
+                            'Chờ xác nhận',
                         ],
                         datasets: [
                             {
-                                data: [CountDH, CountDHT, CountDVC, CountCVC],
-                                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef'],
+                                data: [CountDH, CountDHT, CountDVC, CountCVC, CountXN],
+                                backgroundColor: ['#f56954','#3c8dbc', '#00a65a', '#f39c12', '#00c0ef'],
                             }
                         ]
                     };
@@ -266,11 +270,8 @@
                         data: pieData,
                         options: pieOptions
                     })
-                }
-                 
+                }                
             })
-           
-
         })
     </script>
 }

@@ -37,14 +37,13 @@ namespace TienThinhCandy.Controllers
         }
         public ActionResult WaitShipping()
         {
-           var items = db.Orders.Where( x =>x.Status == 2 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
+            var items = db.Orders.Where( x =>x.Status == 2 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
             return PartialView(items);
         }
 
         public ActionResult Shipped()
         {
             var items = db.Orders.Where(x => x.Status == 3 && x.UserName == User.Identity.Name).OrderByDescending(x => x.CreatedDate).ToList();
-
             return PartialView(items);
         }
         public ActionResult Compelete()
@@ -60,7 +59,7 @@ namespace TienThinhCandy.Controllers
             return PartialView(items);
         }
 
-        public ActionResult ViewDetail(int id)
+        public ActionResult ViewDetail(int? id)
         {
             var item = db.Orders.Find(id);
             return View(item);

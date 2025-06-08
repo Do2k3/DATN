@@ -31,21 +31,33 @@ namespace TienThinhCandy.Controllers
             ViewBag.PageSize = pageSize;
             return View(item);
         }
-        public ActionResult ProductCategory(string alias, int id)
+        public ActionResult ProductCategory(string alias, int id, int? page, string SearchText)
         {
-            var items = _dbContext.Products.ToList();
+            var pageSize = 8;
+            if (page == null)
+            {
+                page = 1;
+            }
+            IEnumerable<Product> item = _dbContext.Products.OrderByDescending(x => x.Id);
             if (id > 0)
             {
-                items = items.Where(x => x.ProductCategoryId == id).ToList();
+                item = item.Where(x => x.ProductCategoryId == id).ToList();
+            }
+            if (!string.IsNullOrEmpty(SearchText))
+            {
+                item = item.Where(x => x.Alias.Contains(SearchText) || x.Title.Contains(SearchText));
             }
             var cate = _dbContext.ProductCategories.Find(id);
             if (cate != null)
             {
                 ViewBag.CateName = cate.Title;
             }
-
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            item = item.ToPagedList(pageIndex, pageSize);
+            ViewBag.Page = page;
+            ViewBag.PageSize = pageSize;
             ViewBag.CateId = id;
-            return View(items);
+            return View(item);
         }
 
         public ActionResult Detail(string alias, int? id)
@@ -69,7 +81,7 @@ namespace TienThinhCandy.Controllers
         }
         public ActionResult Partial_ProductSales()
         {
-            var items = _dbContext.Products.Where(x => x.IsSale && x.IsActive).Take(12).ToList();
+            var items = _dbContext.WareHouse.OrderByDescending(x => x.PurchaseQuantity).Take(12).ToList();
             return PartialView(items);
         }
     }

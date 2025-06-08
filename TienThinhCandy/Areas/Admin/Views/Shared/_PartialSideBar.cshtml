@@ -66,13 +66,13 @@
             <i class="fas fa-box"></i>
             <span>
                 Đơn hàng
-                @if (ViewBag.Count == 0)
+                @if (@TempData["Count"] == null)
                 {
                     <sup class="badge bg-danger">0</sup>
                 }
                 else
                 {
-                    <sup class="badge bg-danger">@ViewBag.Count</sup>
+                    <sup class="badge bg-danger">@TempData["Count"]</sup>
                 }
             </span>
         </a>
@@ -80,13 +80,13 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="/admin/Order/Handle">
                     Đơn hàng cần xử lý
-                    @if (ViewBag.Count == 0)
+                    @if (@TempData["Count"] == null)
                     {
                         <sup class="badge bg-danger">0</sup>
                     }
                     else
                     {
-                        <sup class="badge bg-danger">@ViewBag.Count</sup>
+                        <sup class="badge bg-danger">@TempData["Count"]</sup>
                     }
                 </a>
                 <a class="collapse-item" href="/admin/Order/index">Đơn hàng</a>
@@ -102,7 +102,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="/admin/statistical">Doanh thu</a>
-                <a class="collapse-item" href="/admin/">Mặt hàng bán chạy</a>
+                <a class="collapse-item" href="/admin/warehouses">Mặt hàng bán chạy</a>
             </div>
         </div>
     </li>

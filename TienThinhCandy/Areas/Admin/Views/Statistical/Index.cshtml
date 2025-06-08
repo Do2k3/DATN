@@ -36,40 +36,84 @@
                 </button>
             </div>
         </div>
-        <div class="card-body">
-            <div class="card card-success">
-                <div class="card-header">
-                    <h3 class="card-title">Biểu đồ</h3>
+        <!--<div class="card-body">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Biểu đồ</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="chart">
+                            <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Ngày</th>
+                                    <th>Doanh thu</th>
+                                    <th>Lợi nhuận</th>
+                                </tr>
+                            </thead>
+                            <tbody id="load_data">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="chart">
-                                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <div class="row">
+                    <a href="/admin/DtStatistical" class="btn btn-primary">Chi tiết</a>
+                </div>
+            </div>-->
+        <!-- /.card-body -->
+        <!--</div>
+    </div>-->
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <p class="card-title">Tổng lợi nhuận: </p> <p id="load_tong"></p>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Biểu đồ</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="chart">
+                                    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <table id="tktable" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Ngày</th>
+                                            <th>Doanh thu</th>
+                                            <th>Lợi nhuận</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="load_data">
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Ngày</th>
-                                        <th>Doanh thu</th>
-                                        <th>Lợi nhuận</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="load_data">
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            <a href="/admin/DtStatistical" class="btn btn-primary">Chi tiết</a>
                         </div>
                     </div>
-                    <div class="row">
-                        <a href="/admin/DtStatistical" class="btn btn-primary">Chi tiết</a>
-                    </div>
                 </div>
-                <!-- /.card-body -->
+            </div>
+            <div class="card-footer">
+                Footer
             </div>
         </div>
+
         <!-- /.card-body -->
         <div class="card-footer">
             Footer
