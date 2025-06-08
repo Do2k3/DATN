@@ -127,7 +127,7 @@
                                                 {
                                                     <div data-id="@item.Id" class="favorite favorite_left"></div>
                                                 }
-                                                @if (item.PriceSale > 0)
+                                                @if (item.PriceSale > 0 && item.Price > item.PriceSale)
                                                 {
                                                     <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>sale</span></div>
                                                 }

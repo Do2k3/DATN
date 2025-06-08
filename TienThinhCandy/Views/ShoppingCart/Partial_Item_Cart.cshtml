@@ -14,7 +14,7 @@
             Thao tác
         </th>
     </tr>
-    @if (Model != null && Model.Any())
+    @if (Model != null)
     {
         var i = 0;
         var tongtien = decimal.Zero;
@@ -27,7 +27,9 @@
                 <td><a href="/chi-tiet/@item.Alias-p(@item.ProductId)">@item.ProductName</a></td>
                 <td>@item.CategoryName</td>
                 <td>@Common.FormatNumber(item.Price, 0)</td>
-                <td><input type="number" class="form-control-sm" id="Quantity_@item.ProductId" value="@item.Quantity" /></td>
+                <td><input type="number" class="form-control-sm" id="Quantity_@item.ProductId" value="@item.Quantity" />
+              
+                </td>
                 <th>@Common.FormatNumber(@item.TotalPrice, 2)</th>
                 <td>
                     <a href="#" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDelete">Xoá</a>

@@ -1,4 +1,4 @@
-/* JS Document */
+﻿/* JS Document */
 
 /******************************
 
@@ -213,11 +213,12 @@ jQuery(document).ready(function($)
 			var plus = $('.plus');
 			var minus = $('.minus');
 			var value = $('#quantity_value');
-
+			
 			plus.on('click', function()
 			{
 				var x = parseInt(value.text());
 				value.text(x + 1);
+				
 			});
 
 			minus.on('click', function()

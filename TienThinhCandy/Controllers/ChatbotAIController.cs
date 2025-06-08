@@ -49,21 +49,7 @@ namespace TienThinhCandy.Controllers
                     GPTAnswer = answer
                 });
                 db.SaveChanges();
-                //// Nếu không tìm thấy, gọi OpenAI GPT để lấy câu trả lời
-                //ChatCompletion completion = await openAiClient.CompleteChatAsync(question);
-                //answer = completion.Content[0].Text.Trim();
-
-                //// Lưu câu hỏi và câu trả lời mới vào bảng với IsAIGenerated = true
-                //var newEntry = new ChatbotData
-                //{
-                //    Keyword = question,  // hoặc tách/chọn từ khóa phù hợp
-                //    IsAIGenerated = true,
-                //    UserQuestion = question,
-                //    GPTAnswer = answer
-                //
             }
-
-            // Trả về câu trả lời dưới dạng JSON (đơn giản)
             return Json(answer, JsonRequestBehavior.AllowGet);
         }
     }

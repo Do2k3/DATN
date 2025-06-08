@@ -66,10 +66,11 @@
             <div class="col-lg-5">
                 <div class="product_details">
                     <div class="product_details_title">
+                        <p class="o-hidden" data-id="@Model.Id"></p>
                         <h2>@Model.Title</h2>
                         <p>@Model.Title</p>
                         <p>Lượt xem: @Model.ViewCount</p>
-                        <p>Số lượng trong kho: @Model.Quantity</p>
+                        <p data-id="@Model.Quantity">Số lượng trong còn: @Model.Quantity</p>
                     </div>
                     @if (Model.PriceSale > 0 && Model.PriceSale < Model.Price)
                     {
@@ -176,6 +177,7 @@
                 }
             })
         }
+        
     </script>
     
 }

@@ -100,13 +100,10 @@
                                     <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
                                     <a href="#" class="btn btn-sm btn-danger btnUpdate" data-id="@item.Id">Cập nhật</a>
                                 </td>
-                                @if (item.Status == 4)
-                                {
-                                    <td>
-                                        <button class="btn btn-danger" onclick="window.location.href='/Order/ExportPdf?orderId=@item.Id'">Xuất PDF</button>
-                                    </td>
-                                   
-                                }
+                                
+                                <td>
+                                    <button class="btn btn-danger" onclick="window.location.href='/Order/ExportPdf?orderId=@item.Id'">Xuất PDF</button>
+                                </td>
                             </tr>
                             i++;
                         }
